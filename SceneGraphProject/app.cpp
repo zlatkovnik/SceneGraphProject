@@ -11,6 +11,7 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Debug.h"
+#include "SceneNode.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -60,8 +61,23 @@ int main() {
 	Shader basic("basic.vert", "basic.frag");
 	basic.Bind();
 
-    std::string path = "backpack/backpack.obj";
-    Model backpack(path);
+    std::string path = "Crate/Crate1.obj";
+    Model* backpack = new Model(path);
+
+    SceneNode root;
+
+    SceneNode crate;
+    crate.AddComponent(backpack);
+    crate.GetTransform().Translate(glm::vec3(0.0f, 3.0f, 0.0f));
+    root.AppendChild(&crate);
+
+    SceneNode crate2;
+    crate2.AddComponent(backpack);
+    crate2.GetTransform().Translate(glm::vec3(0.0f, 3.0f, 0.0f));
+    crate.AppendChild(&crate2);
+
+    root.Start();
+
 
 	while (!glfwWindowShouldClose(window)) {
         float currentFrame = glfwGetTime();
@@ -70,16 +86,17 @@ int main() {
 
         processInput(window);
 
+        root.Update(deltaTime);
+
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		basic.Bind();
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(WIDTH / HEIGHT), 0.1f, 100.0f);
-
-        glm::mat4 mvp = projection * view * model;
-        basic.SetMat4("mvp", mvp);
-        backpack.Draw(basic);
+        basic.SetMat4("view", view);
+        basic.SetMat4("projection", projection);
+        root.Render(basic, glm::mat4(1.0f));
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

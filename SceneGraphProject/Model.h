@@ -2,21 +2,22 @@
 #include <vector>
 #include "Shader.h"
 #include "Mesh.h"
+#include "Component.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
 unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
 
-class Model
+class Model: public Component
 {
 private:
-    std::vector<Mesh> meshes;
-    std::string directory;
-    std::vector<Texture> textures_loaded;
+    std::vector<Mesh> m_meshes;
+    std::string m_directory;
+    std::vector<Texture> m_texturesLoaded;
 public:
     Model(std::string const& path, bool gamma = false);
-    void Draw(Shader& shader);
+    void Render(Shader shader) override;
 private:
 
     void LoadModel(std::string path);

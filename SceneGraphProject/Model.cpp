@@ -6,10 +6,10 @@ Model::Model(std::string const& path, bool gamma)
     LoadModel(path);
 }
 
-void Model::Draw(Shader& shader)
+void Model::Render(Shader shader)
 {
-	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+	for (unsigned int i = 0; i < m_meshes.size(); i++)
+		m_meshes[i].Draw(shader);
 }
 
 void Model::LoadModel(std::string path)
@@ -21,7 +21,7 @@ void Model::LoadModel(std::string path)
         std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
         return;
     }
-    directory = path.substr(0, path.find_last_of('/'));
+    m_directory = path.substr(0, path.find_last_of('/'));
 
     ProcessNode(scene->mRootNode, scene);
 }
@@ -31,7 +31,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
     // process all the node's meshes (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(ProcessMesh(mesh, scene));
+        m_meshes.push_back(ProcessMesh(mesh, scene));
     }
     // then do the same for each of its children
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
@@ -53,10 +53,15 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         vector.z = mesh->mVertices[i].z;
         vertex.m_position = vector;
 
-        vector.x = mesh->mNormals[i].x;
-        vector.y = mesh->mNormals[i].y;
-        vector.z = mesh->mNormals[i].z;
-        vertex.m_normal = vector;
+        if (mesh->mNormals != nullptr) {
+            vector.x = mesh->mNormals[i].x;
+            vector.y = mesh->mNormals[i].y;
+            vector.z = mesh->mNormals[i].z;
+            vertex.m_normal = vector;
+        }
+        else {
+            vertex.m_normal = glm::vec3(0.0f, 0.0f, 0.0f);
+        }
 
         if (mesh->mTextureCoords[0]) {
             glm::vec2 vec;
@@ -94,20 +99,20 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType 
         aiString str;
         mat->GetTexture(type, i, &str);
         bool skip = false;
-        for (unsigned int j = 0; j < textures_loaded.size(); j++) {
-            if (std::strcmp(textures_loaded[j].m_path.data(), str.C_Str()) == 0) {
-                textures.push_back(textures_loaded[j]);
+        for (unsigned int j = 0; j < m_texturesLoaded.size(); j++) {
+            if (std::strcmp(m_texturesLoaded[j].m_path.data(), str.C_Str()) == 0) {
+                textures.push_back(m_texturesLoaded[j]);
                 skip = true;
                 break;
             }
         }
         if (!skip) {
             Texture texture;
-            texture.m_id = TextureFromFile(str.C_Str(), directory);
+            texture.m_id = TextureFromFile(str.C_Str(), m_directory);
             texture.m_type = typeName;
             texture.m_path = str.C_Str();
             textures.push_back(texture);
-            textures_loaded.push_back(texture);
+            m_texturesLoaded.push_back(texture);
         }
     }
     return textures;

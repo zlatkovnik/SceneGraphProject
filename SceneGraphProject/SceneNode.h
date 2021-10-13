@@ -8,16 +8,18 @@ class SceneNode
 private:
 	Transform m_transform;
 	std::vector<SceneNode*> m_children;
-	std::vector<Component> m_components;
+	std::vector<Component*> m_components;
 public:
 	SceneNode();
-	SceneNode(Transform transform);
 
 	void Start();
 	void Update(float deltaTime);
-	void Render();
+	void Render(Shader shader, glm::mat4 accumulatedTransform);
 
-
+	void AppendChild(SceneNode* node);
+	void AddComponent(Component* component);
 	bool IsLeaf();
+
+	Transform& GetTransform();
 };
 
