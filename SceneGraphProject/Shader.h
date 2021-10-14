@@ -6,6 +6,7 @@
 #include<sstream>
 #include<iostream>
 #include<cerrno>
+#include <unordered_map>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -17,6 +18,8 @@ class Shader
 private:
 	GLuint m_id;
 public:
+	static std::unordered_map<std::string, Shader*> ShaderMap;
+
 	Shader(const char* vertexFile, const char* fragmentFile);
 	void Bind();
 

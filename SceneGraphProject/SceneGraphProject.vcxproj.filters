@@ -37,9 +37,15 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{7a7a6636-3948-4458-966e-a7a548a7683d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{01f93193-637c-4da1-a0c8-a5bd09987b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{41bc8d18-6546-4d57-b960-8cae5b344001}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="app.cpp">
+    <ClCompile Include="App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
@@ -75,6 +81,9 @@
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
+    <ClCompile Include="CoreManager.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -103,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreManager.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

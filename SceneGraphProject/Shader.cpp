@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+std::unordered_map<std::string, Shader*> Shader::ShaderMap;
+
 Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {
 	std::string vertexCode = get_file_contents(vertexFile);
