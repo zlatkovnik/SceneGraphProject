@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-std::unordered_map<std::string, Shader*> Shader::ShaderMap;
+std::unordered_map<std::string, Shader*> Shader::ShaderLookup;
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {
@@ -44,6 +44,12 @@ void Shader::SetFloat(const char* uniformName, float value)
 {
 	int location = glGetUniformLocation(m_id, uniformName);
 	glUniform1f(location, value);
+}
+
+void Shader::SetVec3(const char* uniformName, glm::vec3 vec)
+{
+	int location = glGetUniformLocation(m_id, uniformName);
+	glUniform3fv(location, 1, &vec[0]);
 }
 
 void Shader::SetMat4(const char* uniformName, glm::mat4& mat)

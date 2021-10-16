@@ -3,15 +3,20 @@
 #include <vector>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class SceneNode;
 class Camera;
+class Shader;
 class CoreManager
 {
 private:
     SceneNode* m_root;
     Camera* m_mainCamera;
     GLFWwindow* m_window;
+    glm::mat4 m_projection;
     int m_width, m_height;
     bool m_cursorEnabled = false;
     float m_lastX;
@@ -32,6 +37,7 @@ public:
     void SetRootNode(SceneNode* root);
     Camera* GetMainCamera();
     void SetMainCamera(Camera* camera);
+    void UpdateProjection(Shader* shader);
     float GetDeltaTime();
     void ToggleCursor();
     void HandleMouseMove(int newX, int newY);

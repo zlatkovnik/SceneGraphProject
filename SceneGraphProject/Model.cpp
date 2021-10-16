@@ -41,6 +41,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 
 Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
+    bool hasNormals = true;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
@@ -60,6 +61,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
             vertex.m_normal = vector;
         }
         else {
+            hasNormals = false;
             vertex.m_normal = glm::vec3(0.0f, 0.0f, 0.0f);
         }
 
@@ -75,8 +77,22 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     }
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++)
+        auto faceIndices = std::vector<unsigned int>();
+        for (unsigned int j = 0; j < face.mNumIndices; j++) {
             indices.push_back(face.mIndices[j]);
+            faceIndices.push_back(face.mIndices[j]);
+        }
+
+        if (!hasNormals) {
+            auto a = vertices[faceIndices[0]].m_position;
+            auto b = vertices[faceIndices[1]].m_position;
+            auto c = vertices[faceIndices[2]].m_position;
+            auto dir = glm::cross(b - a, c - a);
+            auto normal = glm::normalize(dir);
+            for (unsigned int j = 0; j < faceIndices.size(); j++) {
+                vertices[faceIndices[j]].m_normal = normal;
+            }
+        }
     }
     // process material
     if (mesh->mMaterialIndex >= 0) {

@@ -25,6 +25,11 @@ glm::mat4 Camera::GetViewMatrix()
     return glm::lookAt(m_position, m_position + m_front, m_up);
 }
 
+float Camera::GetZoom()
+{
+    return m_zoom;
+}
+
 void Camera::ProcessKeyboard(Direction direction, float deltaTime) {
     float velocity = m_movementSpeed * deltaTime;
     if (direction == Direction::FORWARD)
@@ -54,7 +59,7 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
             m_pitch = -89.0f;
     }
 
-    // update Front, Right and Up Vectors using the updated Euler angles
+
     UpdateCameraVectors();
 }
 
@@ -69,13 +74,12 @@ void Camera::ProcessMouseScroll(float yoffset)
 
 void Camera::UpdateCameraVectors()
 {
-    // calculate the new Front vector
     glm::vec3 front;
     front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
     front.y = sin(glm::radians(m_pitch));
     front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
     m_front = glm::normalize(front);
-    // also re-calculate the Right and Up vector
-    m_right = glm::normalize(glm::cross(m_front, m_worldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+
+    m_right = glm::normalize(glm::cross(m_front, m_worldUp));
     m_up = glm::normalize(glm::cross(m_right, m_front));
 }

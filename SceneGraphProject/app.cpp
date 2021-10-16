@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "SceneNode.h"
 #include "Camera.h"
+#include "Material.h"
 
 
 int main() {
@@ -11,7 +12,10 @@ int main() {
 
 	Shader basic("basic.vert", "basic.frag");
 	basic.Bind();
-    Shader::ShaderMap["standard"] = &basic;
+    Shader::ShaderLookup["standard"] = &basic;
+
+    Material standardMaterial;
+    Material::MaterialLookup["standard"] = &standardMaterial;
 
     std::string path = "Crate/Crate1.obj";
     Model* backpack = new Model(path);

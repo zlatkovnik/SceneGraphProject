@@ -3,6 +3,7 @@
 #include "Debug.h"
 #include "Camera.h"
 #include "SceneNode.h"
+#include "Material.h"
 
 
 void processInput(GLFWwindow* window)
@@ -107,6 +108,11 @@ void CoreManager::SetWindowSize(int width, int height)
     glViewport(0, 0, m_width, m_height);
 }
 
+void CoreManager::UpdateProjection(Shader* shader)
+{
+    m_projection = glm::perspective(glm::radians(m_mainCamera->GetZoom()), (float)(m_width / m_height), 0.1f, 100.0f);
+}
+
 void CoreManager::Init(int width, int height, std::string name)
 {
 	m_width = width;
@@ -144,7 +150,7 @@ void CoreManager::Init(int width, int height, std::string name)
 
 void CoreManager::Run()
 {
-    auto standardShader = Shader::ShaderMap["standard"];
+    auto standardShader = Shader::ShaderLookup["standard"];
     while (!glfwWindowShouldClose(m_window)) {
         float currentFrame = glfwGetTime();
         m_deltaTime = currentFrame - m_lastFrame;
@@ -159,9 +165,14 @@ void CoreManager::Run()
         standardShader->Bind();
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = m_mainCamera->GetViewMatrix();
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(m_width / m_height), 0.1f, 100.0f);
+        UpdateProjection(standardShader);
         standardShader->SetMat4("view", view);
-        standardShader->SetMat4("projection", projection);
+        standardShader->SetMat4("projection", m_projection);
+
+        //TEST
+        Material* standardMaterial = Material::MaterialLookup["standard"];
+        standardMaterial->SetMaterial(standardShader);
+
         m_root->Render(*standardShader, glm::mat4(1.0f));
         glfwSwapBuffers(m_window);
         glfwPollEvents();
