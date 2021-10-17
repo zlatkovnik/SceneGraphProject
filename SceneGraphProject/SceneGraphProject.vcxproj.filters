@@ -43,6 +43,12 @@
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{41bc8d18-6546-4d57-b960-8cae5b344001}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{be01f793-7ec7-4f19-bb1a-4b7e30416c76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\components">
+      <UniqueIdentifier>{d04a62b4-25d9-4326-8c69-b08d9a6926f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -69,9 +75,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="DirectionalLight.cpp">
-      <Filter>Source Files\components</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
@@ -86,6 +89,18 @@
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source Files\components</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\components</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Source Files\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +119,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="DirectionalLight.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
@@ -122,14 +134,32 @@
     <ClInclude Include="Material.h">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Rotator.h">
+      <Filter>Resource Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="LightRevolution.h">
+      <Filter>Resource Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="basic.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="basic.frag">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="cpp.hint" />
+    <None Include="standard.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="standard.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

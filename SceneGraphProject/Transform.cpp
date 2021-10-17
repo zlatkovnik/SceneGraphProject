@@ -44,6 +44,11 @@ void Transform::SetScale(glm::vec3 scale)
 	UpdateTransformMatrix();
 }
 
+glm::vec3 Transform::GetPosition()
+{
+	return m_position;
+}
+
 void Transform::Scale(glm::vec3 scale)
 {
 	m_scale *= scale;

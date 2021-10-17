@@ -1,9 +1,10 @@
 #include "CoreManager.h"
-
 #include "Debug.h"
 #include "Camera.h"
 #include "SceneNode.h"
 #include "Material.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
 
 
 void processInput(GLFWwindow* window)
@@ -113,6 +114,16 @@ void CoreManager::UpdateProjection(Shader* shader)
     m_projection = glm::perspective(glm::radians(m_mainCamera->GetZoom()), (float)(m_width / m_height), 0.1f, 100.0f);
 }
 
+void CoreManager::AddLight(Light* light)
+{
+    if (typeid(*light) == typeid(DirectionalLight)) {
+        m_directionalLights.push_back((DirectionalLight*)light);
+    }
+    else if (typeid(*light) == typeid(PointLight)) {
+        m_pointLights.push_back((PointLight*)light);
+    }
+}
+
 void CoreManager::Init(int width, int height, std::string name)
 {
 	m_width = width;
@@ -165,14 +176,31 @@ void CoreManager::Run()
         standardShader->Bind();
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = m_mainCamera->GetViewMatrix();
-        UpdateProjection(standardShader);
         standardShader->SetMat4("view", view);
+        UpdateProjection(standardShader);
         standardShader->SetMat4("projection", m_projection);
-
-        //TEST
-        Material* standardMaterial = Material::MaterialLookup["standard"];
-        standardMaterial->SetMaterial(standardShader);
-
+        // Lights
+        standardShader->SetInt("directionalLightsCount", m_directionalLights.size());
+        standardShader->SetVec3("viewPos", m_mainCamera->GetPosition());
+        for (int i = 0; i < m_directionalLights.size(); i++) {
+            char buff[128];
+            sprintf_s(buff, "directionalLights[%d].direction", i);
+            standardShader->SetVec3(buff, m_directionalLights[i]->GetDirection());
+            sprintf_s(buff, "directionalLights[%d].color", i);
+            standardShader->SetVec3(buff, m_directionalLights[i]->GetColor());
+            sprintf_s(buff, "directionalLights[%d].intensity", i);
+            standardShader->SetFloat(buff, m_directionalLights[i]->GetIntensity());
+        }
+        standardShader->SetInt("pointLightsCount", m_pointLights.size());
+        for (int i = 0; i < m_pointLights.size(); i++) {
+            char buff[128];
+            sprintf_s(buff, "pointLights[%d].position", i);
+            standardShader->SetVec3(buff, m_pointLights[i]->GetTransform()->GetPosition());
+            sprintf_s(buff, "pointLights[%d].color", i);
+            standardShader->SetVec3(buff, m_pointLights[i]->GetColor());
+            sprintf_s(buff, "pointLights[%d].intensity", i);
+            standardShader->SetFloat(buff, m_pointLights[i]->GetIntensity());
+        }
         m_root->Render(*standardShader, glm::mat4(1.0f));
         glfwSwapBuffers(m_window);
         glfwPollEvents();

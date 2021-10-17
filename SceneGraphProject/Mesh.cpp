@@ -26,10 +26,22 @@ void Mesh::Draw(Shader& shader)
     }
     glActiveTexture(GL_TEXTURE0);
 
+    m_material->SetMaterial(&shader);
+
     // draw mesh
     glBindVertexArray(m_vao);
     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+
+void Mesh::SetMaterial(std::string name)
+{
+    m_material = Material::MaterialLookup[name];
+}
+
+void Mesh::SetMaterial(Material* material)
+{
+    m_material = material;
 }
 
 void Mesh::SetupMesh()
@@ -58,4 +70,6 @@ void Mesh::SetupMesh()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_texCoords));
 
     glBindVertexArray(0);
+
+    m_material = Material::MaterialLookup["standard"];
 }

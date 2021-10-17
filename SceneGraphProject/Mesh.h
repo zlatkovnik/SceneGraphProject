@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
+#include "Material.h"
 
 struct Vertex {
     glm::vec3 m_position;
@@ -25,6 +26,7 @@ private:
     unsigned int m_vao;
     unsigned int m_vbo;
     unsigned int m_ebo;
+    Material* m_material;
 public:
     std::vector<Vertex>       m_vertices;
     std::vector<unsigned int> m_indices;
@@ -32,6 +34,8 @@ public:
 
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     void Draw(Shader& shader);
+    void SetMaterial(std::string name);
+    void SetMaterial(Material* material);
 private:
     void SetupMesh();
 };

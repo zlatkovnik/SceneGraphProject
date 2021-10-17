@@ -25,6 +25,7 @@ public:
 	void Rotate(float pitch, float yaw, float roll);
 	void SetScale(glm::vec3 scale);
 	void Scale(glm::vec3 scale);
+	glm::vec3 GetPosition();
 private:
 	void UpdateTransformMatrix();
 };

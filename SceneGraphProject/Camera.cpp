@@ -30,6 +30,11 @@ float Camera::GetZoom()
     return m_zoom;
 }
 
+glm::vec3 Camera::GetPosition()
+{
+    return m_position;
+}
+
 void Camera::ProcessKeyboard(Direction direction, float deltaTime) {
     float velocity = m_movementSpeed * deltaTime;
     if (direction == Direction::FORWARD)

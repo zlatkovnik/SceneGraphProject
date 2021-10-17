@@ -1,4 +1,8 @@
 #include "SceneNode.h"
+#include <typeinfo> 
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "CoreManager.h"
 
 SceneNode::SceneNode()
 {
@@ -43,6 +47,9 @@ void SceneNode::AppendChild(SceneNode* node)
 
 void SceneNode::AddComponent(Component* component)
 {
+    if (typeid(*component) == typeid(DirectionalLight) || typeid(*component) == typeid(PointLight)) {
+        CoreManager::GetInstance().AddLight((DirectionalLight*)component);
+    }
     m_components.push_back(component);
 }
 

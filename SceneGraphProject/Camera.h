@@ -40,6 +40,7 @@ public:
 
     glm::mat4 GetViewMatrix();
     float GetZoom();
+    glm::vec3 GetPosition();
 
     void ProcessKeyboard(Direction direction, float deltaTime);
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);

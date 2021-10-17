@@ -10,6 +10,9 @@
 class SceneNode;
 class Camera;
 class Shader;
+class DirectionalLight;
+class PointLight;
+class Light;
 class CoreManager
 {
 private:
@@ -24,6 +27,9 @@ private:
     bool firstMouse = true;
     float m_deltaTime = 0.0f;
     float m_lastFrame = 0.0f;
+    // Prebaciti kasnije
+    std::vector<DirectionalLight*> m_directionalLights;
+    std::vector<PointLight*> m_pointLights;
 public:
     void Init(int width, int height, std::string name);
     void Run();
@@ -42,6 +48,8 @@ public:
     void ToggleCursor();
     void HandleMouseMove(int newX, int newY);
     void SetWindowSize(int width, int height);
+
+    void AddLight(Light* light);
 private:
     CoreManager(): m_root(nullptr) {}
 };
