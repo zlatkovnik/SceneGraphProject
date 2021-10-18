@@ -5,6 +5,7 @@
 #include "Material.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "Skybox.h"
 
 
 void processInput(GLFWwindow* window)
@@ -114,6 +115,11 @@ void CoreManager::UpdateProjection(Shader* shader)
     m_projection = glm::perspective(glm::radians(m_mainCamera->GetZoom()), (float)(m_width / m_height), 0.1f, 100.0f);
 }
 
+void CoreManager::SetSkybox(Skybox* skybox)
+{
+    m_skybox = skybox;
+}
+
 void CoreManager::AddLight(Light* light)
 {
     if (typeid(*light) == typeid(DirectionalLight)) {
@@ -157,11 +163,14 @@ void CoreManager::Init(int width, int height, std::string name)
 	glDebugMessageCallback(Debug::OpenglCallbackFunction, NULL);
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 }
 
 void CoreManager::Run()
 {
     auto standardShader = Shader::ShaderLookup["standard"];
+    auto skyboxShader = Shader::ShaderLookup["skybox"];
     while (!glfwWindowShouldClose(m_window)) {
         float currentFrame = glfwGetTime();
         m_deltaTime = currentFrame - m_lastFrame;
@@ -170,12 +179,11 @@ void CoreManager::Run()
         processInput(m_window);
 
         m_root->Update(m_deltaTime);
-
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        standardShader->Bind();
-        glm::mat4 model = glm::mat4(1.0f);
+
         glm::mat4 view = m_mainCamera->GetViewMatrix();
+        standardShader->Bind();
         standardShader->SetMat4("view", view);
         UpdateProjection(standardShader);
         standardShader->SetMat4("projection", m_projection);
@@ -202,6 +210,17 @@ void CoreManager::Run()
             standardShader->SetFloat(buff, m_pointLights[i]->GetIntensity());
         }
         m_root->Render(*standardShader, glm::mat4(1.0f));
+        //Skybox
+        if (m_skybox != nullptr) {
+            glDepthFunc(GL_LEQUAL);
+            skyboxShader->Bind();
+            view = glm::mat4(glm::mat3(m_mainCamera->GetViewMatrix()));
+            skyboxShader->SetMat4("view", view);
+            skyboxShader->SetMat4("projection", m_projection);
+            skyboxShader->SetInt("skybox", 0);
+            m_skybox->Draw();
+            glDepthFunc(GL_LESS);
+        }
         glfwSwapBuffers(m_window);
         glfwPollEvents();
     }

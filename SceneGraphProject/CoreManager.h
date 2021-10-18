@@ -13,6 +13,7 @@ class Shader;
 class DirectionalLight;
 class PointLight;
 class Light;
+class Skybox;
 class CoreManager
 {
 private:
@@ -30,6 +31,7 @@ private:
     // Prebaciti kasnije
     std::vector<DirectionalLight*> m_directionalLights;
     std::vector<PointLight*> m_pointLights;
+    Skybox* m_skybox = nullptr;
 public:
     void Init(int width, int height, std::string name);
     void Run();
@@ -50,6 +52,7 @@ public:
     void SetWindowSize(int width, int height);
 
     void AddLight(Light* light);
+    void SetSkybox(Skybox* skybox);
 private:
     CoreManager(): m_root(nullptr) {}
 };

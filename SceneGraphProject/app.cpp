@@ -8,20 +8,35 @@
 #include "Rotator.h"
 #include "LightRevolution.h"
 #include "PointLight.h"
+#include "Skybox.h"
 
 
 int main() {
 
-    CoreManager::GetInstance().Init(800, 600, "My Graph Scene Project");
+    CoreManager::GetInstance().Init(1920, 1080, "My Graph Scene Project");
+
 
     //Init resources
     Material standardMaterial;
     Material::MaterialLookup["standard"] = &standardMaterial;
 
 	Shader standardShader("standard.vert", "standard.frag");
-	standardShader.Bind();
     Shader::ShaderLookup["standard"] = &standardShader;
 
+    Shader skyboxShader("skybox.vert", "skybox.frag");
+    Shader::ShaderLookup["skybox"] = &skyboxShader;
+
+    std::vector<std::string> faces
+    {
+            "skybox/right.jpg",
+            "skybox/left.jpg",
+            "skybox/top.jpg",
+            "skybox/bottom.jpg",
+            "skybox/front.jpg",
+            "skybox/back.jpg"
+    };
+    Skybox skybox(faces);
+    CoreManager::GetInstance().SetSkybox(&skybox);
 
     std::string path = "Crate/Crate1.obj";
     Model* backpack = new Model(path);
@@ -46,6 +61,8 @@ int main() {
     lightNode.GetTransform().SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
     PointLight pLight(&lightNode.GetTransform());
     LightRevolution revolution(&pLight);
+    DirectionalLight dirLight(glm::vec3(-1.0f, -1.0f, -1.0f));
+    lightNode.AddComponent(&dirLight);
     lightNode.AddComponent(&pLight);
     lightNode.AddComponent(&revolution);
     lightNode.AddComponent(backpack);

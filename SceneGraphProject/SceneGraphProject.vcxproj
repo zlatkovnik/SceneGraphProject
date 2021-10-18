@@ -166,6 +166,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -185,9 +186,12 @@
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
     <None Include="standard.frag" />
     <None Include="standard.vert" />
     <None Include="cpp.hint" />
