@@ -6,6 +6,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Skybox.h"
+#include "RenderManager.h"
 
 
 void processInput(GLFWwindow* window)
@@ -22,15 +23,11 @@ void processInput(GLFWwindow* window)
         camera->ProcessKeyboard(Direction::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera->ProcessKeyboard(Direction::RIGHT, deltaTime);
-    // Ovo prebaciti da radi na prekid
-    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        CoreManager::GetInstance().ToggleCursor();
-    }
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    CoreManager::GetInstance().SetWindowSize(width, height);
+    //CoreManager::GetInstance().SetWindowSize(width, height);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -64,20 +61,21 @@ void CoreManager::SetMainCamera(Camera* camera)
     m_mainCamera = camera;
 }
 
+void CoreManager::GetWindowSize(int* width, int* height)
+{
+    *width = m_width;
+    *height = m_height;
+}
+
+void CoreManager::SetWindowSize(int width, int height)
+{
+    m_width = width; m_height = height;
+    glViewport(0, 0, m_width, m_height);
+}
+
 float CoreManager::GetDeltaTime()
 {
     return m_deltaTime;
-}
-
-void CoreManager::ToggleCursor()
-{
-    if (!m_cursorEnabled) {
-        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    }
-    else {
-        glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    }
-    m_cursorEnabled = !m_cursorEnabled;
 }
 
 void CoreManager::HandleMouseMove(int newX, int newY)
@@ -103,39 +101,12 @@ void CoreManager::SetRootNode(SceneNode* root)
     m_root = root;
 }
 
-void CoreManager::SetWindowSize(int width, int height)
+void CoreManager::Init(int width, int height, std::string name)
 {
     m_width = width;
     m_height = height;
-    glViewport(0, 0, m_width, m_height);
-}
-
-void CoreManager::UpdateProjection(Shader* shader)
-{
-    m_projection = glm::perspective(glm::radians(m_mainCamera->GetZoom()), (float)(m_width / m_height), 0.1f, 100.0f);
-}
-
-void CoreManager::SetSkybox(Skybox* skybox)
-{
-    m_skybox = skybox;
-}
-
-void CoreManager::AddLight(Light* light)
-{
-    if (typeid(*light) == typeid(DirectionalLight)) {
-        m_directionalLights.push_back((DirectionalLight*)light);
-    }
-    else if (typeid(*light) == typeid(PointLight)) {
-        m_pointLights.push_back((PointLight*)light);
-    }
-}
-
-void CoreManager::Init(int width, int height, std::string name)
-{
-	m_width = width;
-	m_height = height;
-    m_lastX = m_width / 2.0f;
-    m_lastY = m_height / 2.0f;
+    m_lastX = width / 2.0f;
+    m_lastY = height / 2.0f;
 
 	glfwInit();
 
@@ -144,7 +115,7 @@ void CoreManager::Init(int width, int height, std::string name)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
-	m_window = glfwCreateWindow(m_width, m_height, name.c_str(), NULL, NULL);
+	m_window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 	if (m_window == NULL) {
 		std::cout << "Failed to create window" << std::endl;
 		glfwTerminate();
@@ -179,48 +150,9 @@ void CoreManager::Run()
         processInput(m_window);
 
         m_root->Update(m_deltaTime);
-        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        RenderManager::GetInstance().RenderAll(m_root);
 
-        glm::mat4 view = m_mainCamera->GetViewMatrix();
-        standardShader->Bind();
-        standardShader->SetMat4("view", view);
-        UpdateProjection(standardShader);
-        standardShader->SetMat4("projection", m_projection);
-        // Lights
-        standardShader->SetInt("directionalLightsCount", m_directionalLights.size());
-        standardShader->SetVec3("viewPos", m_mainCamera->GetPosition());
-        for (int i = 0; i < m_directionalLights.size(); i++) {
-            char buff[128];
-            sprintf_s(buff, "directionalLights[%d].direction", i);
-            standardShader->SetVec3(buff, m_directionalLights[i]->GetDirection());
-            sprintf_s(buff, "directionalLights[%d].color", i);
-            standardShader->SetVec3(buff, m_directionalLights[i]->GetColor());
-            sprintf_s(buff, "directionalLights[%d].intensity", i);
-            standardShader->SetFloat(buff, m_directionalLights[i]->GetIntensity());
-        }
-        standardShader->SetInt("pointLightsCount", m_pointLights.size());
-        for (int i = 0; i < m_pointLights.size(); i++) {
-            char buff[128];
-            sprintf_s(buff, "pointLights[%d].position", i);
-            standardShader->SetVec3(buff, m_pointLights[i]->GetTransform()->GetPosition());
-            sprintf_s(buff, "pointLights[%d].color", i);
-            standardShader->SetVec3(buff, m_pointLights[i]->GetColor());
-            sprintf_s(buff, "pointLights[%d].intensity", i);
-            standardShader->SetFloat(buff, m_pointLights[i]->GetIntensity());
-        }
-        m_root->Render(*standardShader, glm::mat4(1.0f));
-        //Skybox
-        if (m_skybox != nullptr) {
-            glDepthFunc(GL_LEQUAL);
-            skyboxShader->Bind();
-            view = glm::mat4(glm::mat3(m_mainCamera->GetViewMatrix()));
-            skyboxShader->SetMat4("view", view);
-            skyboxShader->SetMat4("projection", m_projection);
-            skyboxShader->SetInt("skybox", 0);
-            m_skybox->Draw();
-            glDepthFunc(GL_LESS);
-        }
         glfwSwapBuffers(m_window);
         glfwPollEvents();
     }

@@ -20,7 +20,6 @@ private:
     SceneNode* m_root;
     Camera* m_mainCamera;
     GLFWwindow* m_window;
-    glm::mat4 m_projection;
     int m_width, m_height;
     bool m_cursorEnabled = false;
     float m_lastX;
@@ -28,10 +27,6 @@ private:
     bool firstMouse = true;
     float m_deltaTime = 0.0f;
     float m_lastFrame = 0.0f;
-    // Prebaciti kasnije
-    std::vector<DirectionalLight*> m_directionalLights;
-    std::vector<PointLight*> m_pointLights;
-    Skybox* m_skybox = nullptr;
 public:
     void Init(int width, int height, std::string name);
     void Run();
@@ -47,12 +42,9 @@ public:
     void SetMainCamera(Camera* camera);
     void UpdateProjection(Shader* shader);
     float GetDeltaTime();
-    void ToggleCursor();
     void HandleMouseMove(int newX, int newY);
+    void GetWindowSize(int* width, int* height);
     void SetWindowSize(int width, int height);
-
-    void AddLight(Light* light);
-    void SetSkybox(Skybox* skybox);
 private:
     CoreManager(): m_root(nullptr) {}
 };

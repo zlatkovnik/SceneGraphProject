@@ -9,14 +9,14 @@
 #include "LightRevolution.h"
 #include "PointLight.h"
 #include "Skybox.h"
+#include "RenderManager.h"
 
 
 int main() {
 
     CoreManager::GetInstance().Init(1920, 1080, "My Graph Scene Project");
 
-
-    //Init resources
+    // Ovo prebaciti u poseban menadzer
     Material standardMaterial;
     Material::MaterialLookup["standard"] = &standardMaterial;
 
@@ -36,7 +36,7 @@ int main() {
             "skybox/back.jpg"
     };
     Skybox skybox(faces);
-    CoreManager::GetInstance().SetSkybox(&skybox);
+    RenderManager::GetInstance().SetSkybox(&skybox);
 
     std::string path = "Crate/Crate1.obj";
     Model* backpack = new Model(path);
