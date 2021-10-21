@@ -10,9 +10,9 @@ private:
     unsigned int m_vao;
     unsigned int m_vbo;
 public:
+    Skybox();
     Skybox(std::vector<std::string> faces);
     void Draw();
-private:
     void LoadCubeMap(std::vector<std::string> faces);
 };
 

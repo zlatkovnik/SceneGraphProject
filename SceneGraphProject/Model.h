@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Component.h"
+#include <unordered_map>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -18,6 +19,8 @@ private:
 public:
     Model(std::string const& path, bool gamma = false);
     void Render(Shader shader) override;
+
+    static std::unordered_map<std::string, Model*> CachedModels;
 private:
 
     void LoadModel(std::string path);

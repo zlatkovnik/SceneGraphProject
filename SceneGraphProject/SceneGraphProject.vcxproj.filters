@@ -49,6 +49,9 @@
     <Filter Include="Resource Files\components">
       <UniqueIdentifier>{d04a62b4-25d9-4326-8c69-b08d9a6926f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\scenes">
+      <UniqueIdentifier>{a71355a7-c233-4693-8304-7b5e6fada6df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="EventObserver.cpp">
       <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +173,9 @@
     <ClInclude Include="CameraController.h">
       <Filter>Resource Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -181,6 +190,9 @@
     </None>
     <None Include="skybox.frag">
       <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="test.json">
+      <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>
 </Project>

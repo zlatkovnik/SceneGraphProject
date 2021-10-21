@@ -1,0 +1,82 @@
+{
+  "camera": {
+
+  },
+  "skybox": {
+    "faces": [
+      "skybox/right.jpg",
+      "skybox/left.jpg",
+      "skybox/top.jpg",
+      "skybox/bottom.jpg",
+      "skybox/front.jpg",
+      "skybox/back.jpg"
+    ]
+  },
+  "models": {
+    "name": "root",
+    "transform": {
+      "position": [ 0.0, 0.0, 0.0 ],
+      "rotation": [ 0.0, 0.0, 0.0 ],
+      "scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "children": [
+      {
+        "name": "crate1",
+        "transform": {
+          "position": [ 0.0, 0.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "model": "Crate/Crate1.obj",
+        "children": [
+          {
+            "name": "crate2",
+            "transform": {
+              "position": [ 0.0, 2.0, 0.0 ],
+              "rotation": [ 0.0, 0.0, 0.0 ],
+              "scale": [ 1.0, 1.0, 1.0 ]
+            },
+            "model": "Crate/Crate1.obj"
+          }
+        ]
+      },
+      {
+        "name": "direct-light",
+        "transform": {
+          "position": [ 0.0, 0.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "components": [
+          {
+            "name": "DirectionalLight",
+            "data": {
+              "direction": [ -1.0, -1.0, -1.0 ],
+              "intensity": 1.0,
+              "color": [ 1.0, 1.0, 1.0 ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "point-light",
+        "transform": {
+          "position": [ 0.0, 0.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ 0.2, 0.2, 0.2 ]
+        },
+        "model": "Crate/Crate1.obj",
+        "components": [
+          {
+            "name": "PointLight",
+            "data": {
+              "range": 1.0,
+              "intensity": 1.0,
+              "color": [ 1.0, 1.0, 1.0 ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

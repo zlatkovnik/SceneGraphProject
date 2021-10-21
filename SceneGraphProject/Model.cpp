@@ -12,6 +12,8 @@ void Model::Render(Shader shader)
 		m_meshes[i].Draw(shader);
 }
 
+std::unordered_map<std::string, Model*> Model::CachedModels;
+
 void Model::LoadModel(std::string path)
 {
     Assimp::Importer import;
