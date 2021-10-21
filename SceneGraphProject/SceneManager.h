@@ -15,9 +15,10 @@ public:
 	static SceneManager& GetInstance();
 
 	void LoadScene(const char* path);
+	void RunScene();
 private:
 	SceneManager() {}
-	void LoadSkybox(json scene, Skybox& skybox);
+	void LoadSkybox(json scene);
 	void LoadModels(json scene);
 };
 

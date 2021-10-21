@@ -115,6 +115,27 @@ void CoreManager::SetRootNode(SceneNode* root)
     m_root = root;
 }
 
+SceneNode* CoreManager::GetNode(std::string name, SceneNode* node)
+{
+    if (node != nullptr) {
+        if (node->GetName().compare(name) == 0) {
+            return node;
+        }
+        else {
+            for (int i = 0; i < node->GetChildren().size(); i++) {
+                SceneNode* foundNode = GetNode(name, node->GetChildren()[i]);
+                if (foundNode != nullptr) {
+                    return foundNode;
+                }
+            }
+        }
+    }
+    else {
+        return nullptr;
+    }
+    return nullptr;
+}
+
 void CoreManager::Init(int width, int height, std::string name)
 {
     m_width = width;

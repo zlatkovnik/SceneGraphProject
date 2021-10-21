@@ -18,7 +18,11 @@ public:
 	void Render(Shader shader, glm::mat4 accumulatedTransform);
 
 	void AppendChild(SceneNode* node);
+	std::vector<SceneNode*> GetChildren();
 	void AddComponent(Component* component);
+	std::vector<Component*> GetComponents();
+	Component* GetComponent(const char* className);
+	std::string GetName();
 	bool IsLeaf();
 
 	Transform& GetTransform();

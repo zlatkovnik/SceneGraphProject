@@ -37,6 +37,7 @@ public:
     static CoreManager& GetInstance();
     SceneNode* GetRootNode();
     void SetRootNode(SceneNode* root);
+    SceneNode* GetNode(std::string name, SceneNode* root);
     Camera* GetMainCamera();
     void SetMainCamera(Camera* camera);
     float GetDeltaTime();

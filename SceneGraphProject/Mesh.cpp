@@ -36,7 +36,7 @@ void Mesh::Draw(Shader& shader)
 
 void Mesh::SetMaterial(std::string name)
 {
-    m_material = Material::MaterialLookup[name];
+    m_material = &Material::MaterialLookup[name];
 }
 
 void Mesh::SetMaterial(Material* material)
@@ -71,5 +71,5 @@ void Mesh::SetupMesh()
 
     glBindVertexArray(0);
 
-    m_material = Material::MaterialLookup["standard"];
+    m_material = &Material::MaterialLookup["standard"];
 }

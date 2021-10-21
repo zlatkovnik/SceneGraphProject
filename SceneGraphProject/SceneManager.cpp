@@ -24,40 +24,43 @@ void SceneManager::LoadScene(const char* path)
 
     // Ovo prebaciti u poseban menadzer
     Material standardMaterial;
-    Material::MaterialLookup["standard"] = &standardMaterial;
+    Material::MaterialLookup["standard"] = standardMaterial;
 
     Shader standardShader("standard.vert", "standard.frag");
-    Shader::ShaderLookup["standard"] = &standardShader;
+    Shader::ShaderLookup["standard"] = standardShader;
 
     Shader skyboxShader("skybox.vert", "skybox.frag");
-    Shader::ShaderLookup["skybox"] = &skyboxShader;
+    Shader::ShaderLookup["skybox"] = skyboxShader;
 
     std::ifstream stream("test.json");
     json scene;
     stream >> scene;
 
-    Skybox skybox;
-    LoadSkybox(scene, skybox);
+    LoadSkybox(scene);
 
     LoadModels(scene);
 
-    SceneNode cameraNode("camera");
-    Camera camera;
-    CameraController cameraController(&camera);
-    cameraNode.AddComponent(&camera);
-    cameraNode.AddComponent(&cameraController);
-    CoreManager::GetInstance().GetRootNode()->AppendChild(&cameraNode);
-    CoreManager::GetInstance().SetMainCamera(&camera);
+    SceneNode* cameraNode = new SceneNode("camera");
+    Camera* camera = new Camera();
+    CameraController* cameraController = new CameraController(camera);
+    cameraNode->AddComponent(camera);
+    cameraNode->AddComponent(cameraController);
+    CoreManager::GetInstance().GetRootNode()->AppendChild(cameraNode);
+    CoreManager::GetInstance().SetMainCamera(camera);
+}
 
+void SceneManager::RunScene()
+{
     CoreManager::GetInstance().Run();
     CoreManager::GetInstance().Cleanup();
 }
 
-void SceneManager::LoadSkybox(json scene, Skybox& skybox)
+void SceneManager::LoadSkybox(json scene)
 {
+    Skybox* skybox = new Skybox();
     std::vector<std::string> faces = scene["skybox"]["faces"];
-    skybox.LoadCubeMap(faces);
-    RenderManager::GetInstance().SetSkybox(&skybox);
+    skybox->LoadCubeMap(faces);
+    RenderManager::GetInstance().SetSkybox(skybox);
 }
 
 void SceneManager::LoadModels(json scene)

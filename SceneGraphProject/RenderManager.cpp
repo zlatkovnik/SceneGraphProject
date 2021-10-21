@@ -92,6 +92,6 @@ void RenderManager::QueueRender(Component* component)
 }
 
 RenderManager::RenderManager() {
-    m_standardShader = Shader::ShaderLookup["standard"];
-    m_skyboxShader = Shader::ShaderLookup["skybox"];
+    m_standardShader = &Shader::ShaderLookup["standard"];
+    m_skyboxShader = &Shader::ShaderLookup["skybox"];
 }

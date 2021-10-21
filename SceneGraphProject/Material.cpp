@@ -1,7 +1,7 @@
 #include "Material.h"
 #include "Shader.h"
 
-std::unordered_map<std::string, Material*> Material::MaterialLookup;
+std::unordered_map<std::string, Material> Material::MaterialLookup;
 
 Material::Material()
 	:m_ambient(glm::vec3(0.1f, 0.1f, 0.1f)), m_diffuse(glm::vec3(1.0f, 1.0f, 1.0f)),

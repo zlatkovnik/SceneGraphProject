@@ -14,7 +14,7 @@ private:
 	glm::vec3 m_specular;
 	float m_shininess;
 public:
-	static std::unordered_map<std::string, Material*> MaterialLookup;
+	static std::unordered_map<std::string, Material> MaterialLookup;
 	Material();
 	Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess);
 	void SetMaterial(Shader* shader);

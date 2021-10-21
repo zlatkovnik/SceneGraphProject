@@ -1,8 +1,18 @@
 #include "Shader.h"
 
-std::unordered_map<std::string, Shader*> Shader::ShaderLookup;
+std::unordered_map<std::string, Shader> Shader::ShaderLookup;
+
+Shader::Shader()
+	:m_id(0)
+{
+}
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile)
+{
+	LoadShader(vertexFile, fragmentFile);
+}
+
+void Shader::LoadShader(const char* vertexFile, const char* fragmentFile)
 {
 	std::string vertexCode = get_file_contents(vertexFile);
 	std::string fragmentCode = get_file_contents(fragmentFile);
@@ -26,7 +36,6 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-
 }
 
 void Shader::Bind()

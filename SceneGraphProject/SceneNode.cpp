@@ -48,6 +48,11 @@ void SceneNode::AppendChild(SceneNode* node)
     m_children.push_back(node);
 }
 
+std::vector<SceneNode*> SceneNode::GetChildren()
+{
+    return m_children;
+}
+
 void SceneNode::AddComponent(Component* component)
 {
     if (typeid(*component) == typeid(Model) || 
@@ -56,6 +61,27 @@ void SceneNode::AddComponent(Component* component)
         RenderManager::GetInstance().QueueRender(component);
     }
     m_components.push_back(component);
+}
+
+std::vector<Component*> SceneNode::GetComponents()
+{
+    return m_components;
+}
+
+Component* SceneNode::GetComponent(const char* className)
+{
+    for (int i = 0; i < m_components.size(); i++) {
+        auto name = std::string(typeid(*m_components[i]).name());
+        if (name.compare(className) == 0) {
+            return m_components[i];
+        }
+    }
+    return nullptr;
+}
+
+std::string SceneNode::GetName()
+{
+    return m_name;
 }
 
 bool SceneNode::IsLeaf()

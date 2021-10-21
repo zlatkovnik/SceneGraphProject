@@ -18,9 +18,11 @@ class Shader
 private:
 	GLuint m_id;
 public:
-	static std::unordered_map<std::string, Shader*> ShaderLookup;
+	static std::unordered_map<std::string, Shader> ShaderLookup;
 
+	Shader();
 	Shader(const char* vertexFile, const char* fragmentFile);
+	void LoadShader(const char* vertexFile, const char* fragmentFile);
 	void Bind();
 
 	void SetInt(const char* uniformName, int value);
