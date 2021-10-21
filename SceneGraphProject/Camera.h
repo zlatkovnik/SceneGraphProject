@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
+#include "Component.h"
 
 enum Direction {
     FORWARD,
@@ -19,7 +20,7 @@ const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
 
-class Camera
+class Camera: public Component
 {
 private:
     glm::vec3 m_position;

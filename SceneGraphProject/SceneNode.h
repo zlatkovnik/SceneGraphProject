@@ -6,11 +6,12 @@
 class SceneNode
 {
 private:
+	std::string m_name;
 	Transform m_transform;
 	std::vector<SceneNode*> m_children;
 	std::vector<Component*> m_components;
 public:
-	SceneNode();
+	SceneNode(std::string name);
 
 	void Start();
 	void Update(float deltaTime);

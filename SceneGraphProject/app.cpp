@@ -10,6 +10,7 @@
 #include "PointLight.h"
 #include "Skybox.h"
 #include "RenderManager.h"
+#include "CameraController.h"
 
 
 int main() {
@@ -41,23 +42,28 @@ int main() {
     std::string path = "Crate/Crate1.obj";
     Model* backpack = new Model(path);
 
-    SceneNode root;
+    SceneNode root("root");
     CoreManager::GetInstance().SetRootNode(&root);
 
+    SceneNode cameraNode("camera");
     Camera camera;
+    CameraController cameraController(&camera);
+    cameraNode.AddComponent(&camera);
+    cameraNode.AddComponent(&cameraController);
+    root.AppendChild(&cameraNode);
     CoreManager::GetInstance().SetMainCamera(&camera);
 
-    SceneNode crate;
+    SceneNode crate("crate1");
     crate.AddComponent(backpack);
     root.AppendChild(&crate);
 
-    SceneNode crate2;
+    SceneNode crate2("crate2");
     crate2.AddComponent(backpack);
     crate2.GetTransform().Translate(glm::vec3(0.0f, 3.0f, 0.0f));
     crate.AppendChild(&crate2);
 
 
-    SceneNode lightNode;
+    SceneNode lightNode("ligth");
     lightNode.GetTransform().SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
     PointLight pLight(&lightNode.GetTransform());
     LightRevolution revolution(&pLight);
@@ -67,9 +73,6 @@ int main() {
     lightNode.AddComponent(&revolution);
     lightNode.AddComponent(backpack);
     root.AppendChild(&lightNode);
-
-    root.Start();
-
     CoreManager::GetInstance().Run();
     CoreManager::GetInstance().Cleanup();
 	return 0;

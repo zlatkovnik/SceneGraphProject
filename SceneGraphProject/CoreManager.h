@@ -14,6 +14,7 @@ class DirectionalLight;
 class PointLight;
 class Light;
 class Skybox;
+class EventObserver;
 class CoreManager
 {
 private:
@@ -21,12 +22,10 @@ private:
     Camera* m_mainCamera;
     GLFWwindow* m_window;
     int m_width, m_height;
-    bool m_cursorEnabled = false;
-    float m_lastX;
-    float m_lastY;
-    bool firstMouse = true;
     float m_deltaTime = 0.0f;
     float m_lastFrame = 0.0f;
+
+    std::vector<EventObserver*> m_observers;
 public:
     void Init(int width, int height, std::string name);
     void Run();
@@ -40,12 +39,20 @@ public:
     void SetRootNode(SceneNode* root);
     Camera* GetMainCamera();
     void SetMainCamera(Camera* camera);
-    void UpdateProjection(Shader* shader);
     float GetDeltaTime();
-    void HandleMouseMove(int newX, int newY);
     void GetWindowSize(int* width, int* height);
     void SetWindowSize(int width, int height);
+    void HandleMouseMove(double newX, double newY);
+    void HandleScroll(double newY);
+    void HandleInput(GLFWwindow* window);
+    void HandleInputPress(int key, int action);
+
+    void EnableCursor();
+    void DisableCursor();
+
+    void RegisterEventObserver(EventObserver* observer);
 private:
     CoreManager(): m_root(nullptr) {}
+
 };
 

@@ -105,6 +105,9 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="EventObserver.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -157,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="Skybox.h">
       <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="EventObserver.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Resource Files\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

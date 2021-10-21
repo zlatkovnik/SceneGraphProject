@@ -6,7 +6,8 @@
 #include "Model.h"
 #include "RenderManager.h"
 
-SceneNode::SceneNode()
+SceneNode::SceneNode(std::string name)
+    :m_name(name)
 {
 }
 
