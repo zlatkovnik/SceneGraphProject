@@ -35,11 +35,31 @@ void SceneNode::Render(Shader shader, glm::mat4 accumulatedTransform)
 {
     glm::mat4 currentTransform = accumulatedTransform * m_transform.GetTransformMatrix();
     shader.SetMat4("model", currentTransform);
-    for (auto component : m_components) {
-        component->Render(shader);
+    if (m_model != nullptr) {
+        m_model->Render(shader);
     }
     for (auto child : m_children) {
         child->Render(shader, currentTransform);
+    }
+}
+
+void SceneNode::RenderSelf(Shader shader, glm::mat4 finalTranform)
+{
+    if (m_model != nullptr) {
+        shader.SetMat4("model", finalTranform);
+        m_model->Render(shader);
+    }
+}
+
+void SceneNode::MakeRenderCommand(std::vector<RenderCommand>& commands, glm::mat4 accumulatedTransform)
+{
+    glm::mat4 currentTransform = accumulatedTransform * m_transform.GetTransformMatrix();
+    if (m_model != nullptr) {
+        RenderCommand cmd(m_model, currentTransform);
+        commands.push_back(cmd);
+    }
+    for (auto child : m_children) {
+        child->MakeRenderCommand(commands, currentTransform);
     }
 }
 
@@ -59,6 +79,9 @@ void SceneNode::AddComponent(Component* component)
         typeid(*component) == typeid(DirectionalLight) || 
         typeid(*component) == typeid(PointLight)) {
         RenderManager::GetInstance().QueueRender(component);
+    }
+    if (typeid(*component) == typeid(Model)) {
+        m_model = (Model*)component;
     }
     m_components.push_back(component);
 }

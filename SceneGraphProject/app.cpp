@@ -2,6 +2,7 @@
 #include "CoreManager.h"
 #include "PointLight.h"
 #include "LightRevolution.h"
+#include "SceneNode.h"
 
 
 int main() {

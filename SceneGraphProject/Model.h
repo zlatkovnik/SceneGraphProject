@@ -18,7 +18,7 @@ private:
     std::vector<Texture> m_texturesLoaded;
 public:
     Model(std::string const& path, bool gamma = false);
-    void Render(Shader shader) override;
+    void Render(Shader shader);
 
     static std::unordered_map<std::string, Model*> CachedModels;
 private:

@@ -9,6 +9,8 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Transform.h"
+#include "SceneNode.h"
+#include "Model.h"
 
 SceneNode* LoadChild(json root);
 

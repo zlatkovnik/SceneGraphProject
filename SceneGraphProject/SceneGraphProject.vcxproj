@@ -164,6 +164,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="RenderCommand.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneNode.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PointLight.h" />
+    <ClInclude Include="RenderCommand.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="SceneManager.h" />

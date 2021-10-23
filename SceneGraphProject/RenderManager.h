@@ -1,6 +1,8 @@
 #pragma once
 #define CMD_BUFF_SIZE 1024
 #include <vector>
+#include "Transform.h"
+#include "RenderCommand.h"
 
 class Component;
 class Shader;

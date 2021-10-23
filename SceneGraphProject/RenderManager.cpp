@@ -55,7 +55,16 @@ void RenderManager::RenderAll(SceneNode* root)
         sprintf_s(buff, "pointLights[%d].intensity", i);
         m_standardShader->SetFloat(buff, m_pointLights[i]->GetIntensity());
     }
-    root->Render(*m_standardShader, glm::mat4(1.0f));
+    std::vector<RenderCommand> commands;
+    root->MakeRenderCommand(commands, glm::mat4(1.0f));
+    for (auto command : commands) {
+        // TODO OPTIMIZE
+        glm::mat4 identity = glm::mat4(1.0f);
+        m_standardShader->SetMat4("model", command.m_transformMatrix);
+        command.m_model->Render(*m_standardShader);
+    }
+    // Old deprecated
+    //root->Render(*m_standardShader, glm::mat4(1.0f));
     //Skybox
     if (m_skybox != nullptr) {
         glDepthFunc(GL_LEQUAL);

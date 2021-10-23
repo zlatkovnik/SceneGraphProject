@@ -1,8 +1,5 @@
 #pragma once
 #include <vector>
-#include "SceneNode.h"
-#include "Skybox.h"
-#include "Model.h"
 #include <nlohmann/json.hpp>
 
 using namespace nlohmann;
