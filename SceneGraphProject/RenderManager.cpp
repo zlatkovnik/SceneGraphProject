@@ -31,8 +31,6 @@ void RenderManager::RenderAll(SceneNode* root)
     glm::mat4 view = camera->GetViewMatrix();
     glm::mat4 projection = glm::perspective(glm::radians(camera->GetZoom()), (float)(width / height), 0.1f, 100.0f);
     m_standardShader->Bind();
-    m_standardShader->SetMat4("view", view);
-    m_standardShader->SetMat4("projection", projection);
     // Lights
     m_standardShader->SetInt("directionalLightsCount", m_directionalLights.size());
     m_standardShader->SetVec3("viewPos", camera->GetPosition());
@@ -55,11 +53,14 @@ void RenderManager::RenderAll(SceneNode* root)
         sprintf_s(buff, "pointLights[%d].intensity", i);
         m_standardShader->SetFloat(buff, m_pointLights[i]->GetIntensity());
     }
-    std::vector<RenderCommand> commands;
+    static std::vector<RenderCommand> commands;
+    commands.clear();
     root->MakeRenderCommand(commands, glm::mat4(1.0f));
     for (auto command : commands) {
         // TODO OPTIMIZE
         glm::mat4 identity = glm::mat4(1.0f);
+        glm::mat4 mvp = projection * view * command.m_transformMatrix;
+        m_standardShader->SetMat4("mvp", mvp);
         m_standardShader->SetMat4("model", command.m_transformMatrix);
         command.m_model->Render(*m_standardShader);
     }
