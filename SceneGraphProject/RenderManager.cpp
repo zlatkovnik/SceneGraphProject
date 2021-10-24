@@ -53,16 +53,24 @@ void RenderManager::RenderAll(SceneNode* root)
         sprintf_s(buff, "pointLights[%d].intensity", i);
         m_standardShader->SetFloat(buff, m_pointLights[i]->GetIntensity());
     }
+    // Instanced rendering
     static std::vector<RenderCommand> commands;
     commands.clear();
     root->MakeRenderCommand(commands, glm::mat4(1.0f));
-    for (auto command : commands) {
-        // TODO OPTIMIZE
-        glm::mat4 identity = glm::mat4(1.0f);
-        glm::mat4 mvp = projection * view * command.m_transformMatrix;
-        m_standardShader->SetMat4("mvp", mvp);
-        m_standardShader->SetMat4("model", command.m_transformMatrix);
-        command.m_model->Render(*m_standardShader);
+    std::unordered_map<Model*, std::vector<RenderCommand>> groupedCommands;
+    for (int i = 0; i < commands.size(); i++) {
+        groupedCommands[commands[i].m_model].push_back(commands[i]);
+    }
+    for (auto& command : groupedCommands) {
+        for (int i = 0; i < command.second.size(); i++) {
+            glm::mat4 mvp = projection * view * command.second[i].m_transformMatrix;
+            char buff[128];
+            sprintf_s(buff, "mvps[%d]", i);
+            m_standardShader->SetMat4(buff, mvp);
+            sprintf_s(buff, "models[%d]", i);
+            m_standardShader->SetMat4(buff, command.second[i].m_transformMatrix);
+        }
+        command.first->Render(*m_standardShader);
     }
     // Old deprecated
     //root->Render(*m_standardShader, glm::mat4(1.0f));

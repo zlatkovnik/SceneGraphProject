@@ -33,7 +33,7 @@ public:
     std::vector<Texture>      m_textures;
 
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    void Draw(Shader& shader);
+    void Draw(Shader& shader, int instances = 1);
     void SetMaterial(std::string name);
     void SetMaterial(Material* material);
 private:

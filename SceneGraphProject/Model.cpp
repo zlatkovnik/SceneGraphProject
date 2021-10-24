@@ -9,7 +9,12 @@ Model::Model(std::string const& path, bool gamma)
 void Model::Render(Shader shader)
 {
 	for (unsigned int i = 0; i < m_meshes.size(); i++)
-		m_meshes[i].Draw(shader);
+		m_meshes[i].Draw(shader, m_instances);
+}
+
+void Model::IncrementInstances()
+{
+    m_instances++;
 }
 
 std::unordered_map<std::string, Model*> Model::CachedModels;

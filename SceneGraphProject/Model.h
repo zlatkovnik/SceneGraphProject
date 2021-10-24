@@ -16,11 +16,13 @@ private:
     std::vector<Mesh> m_meshes;
     std::string m_directory;
     std::vector<Texture> m_texturesLoaded;
+    int m_instances = 1;
 public:
     Model(std::string const& path, bool gamma = false);
     void Render(Shader shader);
 
     static std::unordered_map<std::string, Model*> CachedModels;
+    void IncrementInstances();
 private:
 
     void LoadModel(std::string path);

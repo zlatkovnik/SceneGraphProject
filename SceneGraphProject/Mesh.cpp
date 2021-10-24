@@ -7,7 +7,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     SetupMesh();
 }
 
-void Mesh::Draw(Shader& shader)
+void Mesh::Draw(Shader& shader, int instances)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
@@ -30,7 +30,8 @@ void Mesh::Draw(Shader& shader)
 
     // draw mesh
     glBindVertexArray(m_vao);
-    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
+    //glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElementsInstanced(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0, instances);
     glBindVertexArray(0);
 }
 

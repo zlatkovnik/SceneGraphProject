@@ -9,13 +9,13 @@ out vec3 Normal;
 out vec3 FragPos;
 out vec2 TexCoord;
 
-uniform mat4 mvp;
-uniform mat4 model;
+uniform mat4 mvps[128];
+uniform mat4 models[128];
 
 void main()
 {
-    gl_Position = mvp * vec4(aPos, 1.0);
-    FragPos = vec3(model * vec4(aPos, 1.0));
+    gl_Position = mvps[gl_InstanceID] * vec4(aPos, 1.0);
+    FragPos = vec3(models[gl_InstanceID] * vec4(aPos, 1.0));
     TexCoord = aTexCoord;
-    Normal = mat3(transpose(inverse(model))) * aNormal;
+    Normal = mat3(transpose(inverse(models[gl_InstanceID]))) * aNormal;
 }

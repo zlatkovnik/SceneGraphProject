@@ -96,6 +96,9 @@ SceneNode* LoadChild(json root) {
             model = new Model(modelPath);
             Model::CachedModels[modelPath] = model;
         }
+        else {
+            model->IncrementInstances();
+        }
         node->AddComponent(model);
     }
     if (root["components"] != nullptr) {
