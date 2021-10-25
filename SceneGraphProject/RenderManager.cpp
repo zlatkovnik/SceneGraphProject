@@ -13,6 +13,7 @@
 #include "Component.h"
 #include "Model.h"
 #include "CoreManager.h"
+#include "ResourceManager.h"
 
 RenderManager& RenderManager::GetInstance()
 {
@@ -110,6 +111,6 @@ void RenderManager::QueueRender(Component* component)
 }
 
 RenderManager::RenderManager() {
-    m_standardShader = &Shader::ShaderLookup["standard"];
-    m_skyboxShader = &Shader::ShaderLookup["skybox"];
+    m_standardShader = &ResourceManager::GetInstance().ShaderLookup["standard"];
+    m_skyboxShader = &ResourceManager::GetInstance().ShaderLookup["skybox"];
 }

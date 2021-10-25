@@ -11,6 +11,7 @@
 #include "Transform.h"
 #include "SceneNode.h"
 #include "Model.h"
+#include "ResourceManager.h"
 
 SceneNode* LoadChild(json root);
 
@@ -24,20 +25,12 @@ void SceneManager::LoadScene(const char* path)
 {
     CoreManager::GetInstance().Init(1920, 1080, "My Graph Scene Project");
 
-    // Ovo prebaciti u poseban menadzer
-    Material standardMaterial;
-    Material::MaterialLookup["standard"] = standardMaterial;
-
-    Shader standardShader("standard.vert", "standard.frag");
-    Shader::ShaderLookup["standard"] = standardShader;
-
-    Shader skyboxShader("skybox.vert", "skybox.frag");
-    Shader::ShaderLookup["skybox"] = skyboxShader;
-
     std::ifstream stream("test.json");
     json scene;
     stream >> scene;
 
+    ResourceManager::GetInstance().LoadAssets(scene["assets"]);
+    auto manager = &ResourceManager::GetInstance();
     LoadSkybox(scene);
 
     LoadModels(scene);

@@ -8,6 +8,7 @@
 #include "Skybox.h"
 #include "RenderManager.h"
 #include "EventObserver.h"
+#include "ResourceManager.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -174,8 +175,8 @@ void CoreManager::Init(int width, int height, std::string name)
 
 void CoreManager::Run()
 {
-    auto standardShader = Shader::ShaderLookup["standard"];
-    auto skyboxShader = Shader::ShaderLookup["skybox"];
+    auto& standardShader = ResourceManager::GetInstance().ShaderLookup["standard"];
+    auto& skyboxShader = ResourceManager::GetInstance().ShaderLookup["skybox"];
     m_root->Start();
     while (!glfwWindowShouldClose(m_window)) {
         float currentFrame = glfwGetTime();

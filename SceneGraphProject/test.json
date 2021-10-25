@@ -1,4 +1,8 @@
 {
+  "assets": {
+    "shaders": [ "skybox", "standard" ],
+    "textures": [ "Crate/diffuse.jpg", "backpack/diffuse.jpg", "backpack/normal.png" ]
+  },
   "camera": {
 
   },
@@ -20,6 +24,15 @@
       "scale": [ 1.0, 1.0, 1.0 ]
     },
     "children": [
+      {
+        "name": "backpack",
+        "transform": {
+          "position": [ 2.0, 2.0, 2.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "model": "backpack/backpack.obj"
+      },
       {
         "name": "crate1",
         "transform": {

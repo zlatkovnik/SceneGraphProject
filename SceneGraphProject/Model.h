@@ -15,7 +15,7 @@ class Model: public Component
 private:
     std::vector<Mesh> m_meshes;
     std::string m_directory;
-    std::vector<Texture> m_texturesLoaded;
+    std::vector<Texture*> m_textures;
     int m_instances = 1;
 public:
     Model(std::string const& path, bool gamma = false);

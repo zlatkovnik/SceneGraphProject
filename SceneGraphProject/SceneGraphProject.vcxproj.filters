@@ -117,6 +117,9 @@
     <ClCompile Include="RenderCommand.cpp">
       <Filter>Source Files\util</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="RenderCommand.h">
       <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

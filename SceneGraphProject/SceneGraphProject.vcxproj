@@ -166,6 +166,7 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="RenderCommand.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="RenderCommand.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneNode.h" />

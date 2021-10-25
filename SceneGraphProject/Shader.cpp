@@ -1,6 +1,5 @@
 #include "Shader.h"
 
-std::unordered_map<std::string, Shader> Shader::ShaderLookup;
 
 Shader::Shader()
 	:m_id(0)
