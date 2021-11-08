@@ -179,6 +179,7 @@
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CoreManager.h" />
+    <ClInclude Include="DataStructures.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="EventObserver.h" />
@@ -199,6 +200,8 @@
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ambient_glow.frag" />
+    <None Include="ambient_glow.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
     <None Include="standard.frag" />

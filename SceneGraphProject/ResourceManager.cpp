@@ -15,25 +15,50 @@ void ResourceManager::LoadAssets(json assets)
     if (assets["textures"].is_array()) {
         LoadTextures(assets["textures"]);
     }
-    //if (assets["shaders"].is_array()) {
-    //    LoadShaders(assets["shaders"]);
-    //}
+    if (assets["materials"].is_array()) {
+        LoadMaterials(assets["materials"]);
+    }
 }
 
 void ResourceManager::LoadShaders(json shaders)
 {
-    for (std::string shader : shaders) {
-        Shader s((shader + ".vert").c_str(), (shader + ".frag").c_str());
-        ShaderLookup[shader] = s;
+    for (auto shader : shaders) {
+        std::string vertex = shader["vertex"];
+        std::string fragment = shader["fragment"];
+        Shader s(vertex.c_str(), fragment.c_str());
+        s.SetShading(shader["shadingEnabled"]);
+        s.SetTimeInput(shader["timeInput"]);
+        std::string name = shader["name"];
+        bool customData = shader["customData"];
+        s.SetCustomData(customData);
+        if (customData) {
+            json data = shader["data"];
+            for (auto it : data.items()) {
+                std::string type = it.value()["type"];
+                if (type == "vec3") {
+                    std::vector<float> vec = it.value()["value"];
+                    glm::vec3* value = new glm::vec3();
+                    value->x = vec[0];
+                    value->y = vec[1];
+                    value->z = vec[2];
+                    UniformData ud(it.key(), type, value);
+                    s.AddCustomData(ud.m_name, ud);
+                }
+                else {
+                    std::cout << "[ResourceManager] Type '"  << type << "' does not exist" << std::endl;
+                }
+            }
+        }
+        ShaderLookup[name] = s;
     }
 }
 
 void ResourceManager::LoadTextures(json textures)
 {
+    stbi_set_flip_vertically_on_load(true);
     for (std::string texture : textures) {
         unsigned int texId;
         glGenTextures(1, &texId);
-        stbi_set_flip_vertically_on_load(true);
         int width, height, nrComponents;
         unsigned char* data = stbi_load(texture.c_str(), &width, &height, &nrComponents, 0);
         if (data)
@@ -64,5 +89,19 @@ void ResourceManager::LoadTextures(json textures)
             std::cout << "Texture failed to load at path: " << texture << std::endl;
             stbi_image_free(data);
         }
+    }
+}
+
+void ResourceManager::LoadMaterials(json materials)
+{
+    for (auto material : materials) {
+        Shader* shader = &ShaderLookup[material["shader"]];
+        Material m(
+            material["name"],
+            glm::vec3(material["ambient"][0], material["ambient"][1], material["ambient"][2]),
+            glm::vec3(material["diffuse"][0], material["diffuse"][1], material["diffuse"][2]),
+            glm::vec3(material["specular"][0], material["specular"][1], material["specular"][2]),
+            material["shininess"], shader);
+        MaterialLookup[material["name"]] = m;
     }
 }

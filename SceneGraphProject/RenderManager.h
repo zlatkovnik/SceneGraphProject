@@ -21,10 +21,6 @@ private:
 	std::vector<Model*> m_models;
 	Skybox* m_skybox = nullptr;
 
-	// Cache
-	Shader* m_standardShader = nullptr;
-	Shader* m_skyboxShader = nullptr;
-
 public:
 	static RenderManager& GetInstance();
 	RenderManager(RenderManager const&) = delete;
@@ -36,5 +32,7 @@ public:
 	void SetSkybox(Skybox* skybox);
 private:
 	RenderManager();
+
+	void SetLightUniforms(Shader* shader);
 };
 

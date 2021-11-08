@@ -2,20 +2,33 @@
 #include <stb/stbi_image.h>
 #include "ResourceManager.h"
 
-Model::Model(std::string const& path, bool gamma)
+Model::Model(std::string const& path, Material* material)
+    :m_material(material)
 {
     LoadModel(path);
 }
 
-void Model::Render(Shader shader)
+void Model::Render()
 {
-	for (unsigned int i = 0; i < m_meshes.size(); i++)
-		m_meshes[i].Draw(shader, m_instances);
+    m_material->SetMaterial();
+    for (unsigned int i = 0; i < m_meshes.size(); i++) {
+        m_meshes[i].Draw(*m_material->GetShader(), m_instances);
+    }
 }
 
 void Model::IncrementInstances()
 {
     m_instances++;
+}
+
+void Model::SetMaterial(Material* material)
+{
+    m_material = material;
+}
+
+Material* Model::GetMaterial()
+{
+    return m_material;
 }
 
 std::unordered_map<std::string, Model*> Model::CachedModels;

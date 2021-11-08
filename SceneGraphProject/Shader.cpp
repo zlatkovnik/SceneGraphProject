@@ -42,28 +42,68 @@ void Shader::Bind()
 	glUseProgram(m_id);
 }
 
-void Shader::SetInt(const char* uniformName, int value)
+void Shader::SetInt(const char* uniformName, int value) const
 {
 	int location = glGetUniformLocation(m_id, uniformName);
 	glUniform1i(location, value);
 }
 
-void Shader::SetFloat(const char* uniformName, float value)
+void Shader::SetFloat(const char* uniformName, float value) const
 {
 	int location = glGetUniformLocation(m_id, uniformName);
 	glUniform1f(location, value);
 }
 
-void Shader::SetVec3(const char* uniformName, glm::vec3 vec)
+void Shader::SetVec3(const char* uniformName, glm::vec3 vec) const
 {
 	int location = glGetUniformLocation(m_id, uniformName);
 	glUniform3fv(location, 1, &vec[0]);
 }
 
-void Shader::SetMat4(const char* uniformName, glm::mat4& mat)
+void Shader::SetMat4(const char* uniformName, glm::mat4& mat) const
 {
 	int location = glGetUniformLocation(m_id, uniformName);
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Shader::SetShading(bool isEnabled)
+{
+	m_flags = isEnabled ? m_flags |= 0x01 : m_flags &= 0xfe;
+}
+
+bool Shader::GetShading()
+{
+	return m_flags & 0x01;
+}
+
+void Shader::SetCustomData(bool isEnabled)
+{
+	m_flags = isEnabled ? m_flags |= 0x02 : m_flags &= 0xfd;
+}
+
+bool Shader::GetCustomData()
+{
+	return m_flags & 0x02;
+}
+
+void Shader::AddCustomData(std::string name, UniformData data)
+{
+	m_data[name] = data;
+}
+
+std::unordered_map<std::string, UniformData>& Shader::GetData()
+{
+	return m_data;
+}
+
+void Shader::SetTimeInput(bool isEnabled)
+{
+	m_flags = isEnabled ? m_flags |= 0x04 : m_flags &= 0xfb;
+}
+
+bool Shader::GetTimeInput()
+{
+	return m_flags & 0x4;
 }
 
 void Shader::CompileErrors(unsigned int shader, const char* type)

@@ -36,7 +36,7 @@ void SceneNode::Render(Shader shader, glm::mat4 accumulatedTransform)
     glm::mat4 currentTransform = accumulatedTransform * m_transform.GetTransformMatrix();
     shader.SetMat4("model", currentTransform);
     if (m_model != nullptr) {
-        m_model->Render(shader);
+        m_model->Render();
     }
     for (auto child : m_children) {
         child->Render(shader, currentTransform);
@@ -47,7 +47,7 @@ void SceneNode::RenderSelf(Shader shader, glm::mat4 finalTranform)
 {
     if (m_model != nullptr) {
         shader.SetMat4("model", finalTranform);
-        m_model->Render(shader);
+        m_model->Render();
     }
 }
 
@@ -55,7 +55,7 @@ void SceneNode::MakeRenderCommand(std::vector<RenderCommand>& commands, glm::mat
 {
     glm::mat4 currentTransform = accumulatedTransform * m_transform.GetTransformMatrix();
     if (m_model != nullptr) {
-        RenderCommand cmd(m_model, currentTransform);
+        RenderCommand cmd(m_model, m_model->GetMaterial()->GetShader(), currentTransform);
         commands.push_back(cmd);
     }
     for (auto child : m_children) {

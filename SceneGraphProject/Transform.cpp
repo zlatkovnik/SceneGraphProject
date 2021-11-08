@@ -58,6 +58,9 @@ void Transform::Scale(glm::vec3 scale)
 
 void Transform::UpdateTransformMatrix()
 {
+	// Rotacija oko proizvoljne ose
+	// Razmisliti o redosledu transformacija
+	// I visestrukim transformacijama
 	m_cachedTransformMatrix = glm::translate(glm::mat4(1.0f), m_position);
 	m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_pitch, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));

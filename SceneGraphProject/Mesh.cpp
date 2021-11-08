@@ -7,7 +7,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     SetupMesh();
 }
 
-void Mesh::Draw(Shader& shader, int instances)
+void Mesh::Draw(const Shader& shader, int instances)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
@@ -26,23 +26,11 @@ void Mesh::Draw(Shader& shader, int instances)
     }
     glActiveTexture(GL_TEXTURE0);
 
-    m_material->SetMaterial(&shader);
-
     // draw mesh
     glBindVertexArray(m_vao);
     //glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
     glDrawElementsInstanced(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0, instances);
     glBindVertexArray(0);
-}
-
-void Mesh::SetMaterial(std::string name)
-{
-    m_material = &Material::MaterialLookup[name];
-}
-
-void Mesh::SetMaterial(Material* material)
-{
-    m_material = material;
 }
 
 void Mesh::SetupMesh()
@@ -71,6 +59,4 @@ void Mesh::SetupMesh()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_texCoords));
 
     glBindVertexArray(0);
-
-    m_material = &Material::MaterialLookup["standard"];
 }

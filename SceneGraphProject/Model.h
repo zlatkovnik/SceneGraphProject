@@ -8,21 +8,22 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
-
 class Model: public Component
 {
 private:
     std::vector<Mesh> m_meshes;
     std::string m_directory;
-    std::vector<Texture*> m_textures;
+    Material* m_material;
     int m_instances = 1;
 public:
-    Model(std::string const& path, bool gamma = false);
-    void Render(Shader shader);
+    Model(std::string const& path, Material* material);
+    void Render();
 
     static std::unordered_map<std::string, Model*> CachedModels;
     void IncrementInstances();
+
+    void SetMaterial(Material *material);
+    Material* GetMaterial();
 private:
 
     void LoadModel(std::string path);

@@ -188,6 +188,9 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="DataStructures.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -205,6 +208,12 @@
     </None>
     <None Include="test.json">
       <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="ambient_glow.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="ambient_glow.frag">
+      <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

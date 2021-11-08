@@ -30,7 +30,7 @@ void SceneManager::LoadScene(const char* path)
     stream >> scene;
 
     ResourceManager::GetInstance().LoadAssets(scene["assets"]);
-    auto manager = &ResourceManager::GetInstance();
+    //auto manager = &ResourceManager::GetInstance();
     LoadSkybox(scene);
 
     LoadModels(scene);
@@ -83,16 +83,23 @@ SceneNode* LoadChild(json root) {
         }
     }
     if (root["model"] != nullptr) {
-        std::string modelPath = root["model"];
-        Model* model = Model::CachedModels[modelPath];
-        if (model == nullptr) {
-            model = new Model(modelPath);
-            Model::CachedModels[modelPath] = model;
+        json model = root["model"];
+        Model* m = Model::CachedModels[model["path"]];
+        if (m == nullptr) {
+            Material* material;
+            if (model["material"].is_null()) {
+                material = &ResourceManager::GetInstance().MaterialLookup["standard"];
+            }
+            else {
+                material = &ResourceManager::GetInstance().MaterialLookup[model["material"]];
+            }
+            m = new Model(model["path"], material);
+            Model::CachedModels[model["path"]] = m;
         }
         else {
-            model->IncrementInstances();
+            m->IncrementInstances();
         }
-        node->AddComponent(model);
+        node->AddComponent(m);
     }
     if (root["components"] != nullptr) {
         std::vector<json> components = root["components"];
