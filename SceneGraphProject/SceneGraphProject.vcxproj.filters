@@ -215,5 +215,11 @@
     <None Include="ambient_glow.frag">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="noise.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="noise.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -202,6 +202,8 @@
   <ItemGroup>
     <None Include="ambient_glow.frag" />
     <None Include="ambient_glow.vert" />
+    <None Include="noise.frag" />
+    <None Include="noise.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
     <None Include="standard.frag" />
