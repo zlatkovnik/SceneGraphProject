@@ -99,7 +99,16 @@
         "model": {
           "path": "backpack/backpack.obj",
           "material": "standard"
-        }
+        },
+        "components": [
+          {
+            "name": "Collider",
+            "data": {
+              "max": [ 2.0, 2.0, 1.0 ],
+              "min": [ -2.0, -2.0, -1.0 ]
+            }
+          }
+        ]
       },
       {
         "name": "crate1",
@@ -110,7 +119,7 @@
         },
         "model": {
           "path": "Crate/Crate1.obj",
-          "material":  "noise"
+          "material": "standard"
         },
         "children": [
           {
@@ -174,6 +183,13 @@
               "range": 1.0,
               "intensity": 1.0,
               "color": [ 1.0, 1.0, 1.0 ]
+            }
+          },
+          {
+            "name": "Collider",
+            "data": {
+              "max": [ 0.3, 0.3, 0.3 ],
+              "min": [ -0.3, -0.3, -0.3 ]
             }
           }
         ]

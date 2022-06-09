@@ -52,6 +52,9 @@
     <Filter Include="Resource Files\scenes">
       <UniqueIdentifier>{a71355a7-c233-4693-8304-7b5e6fada6df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\components\AABB">
+      <UniqueIdentifier>{64790f80-55dd-4a8c-9463-87c4820ae167}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -119,6 +122,15 @@
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Resource Files\components\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBTree.cpp">
+      <Filter>Resource Files\components\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Resource Files\components\AABB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +202,18 @@
     </ClInclude>
     <ClInclude Include="DataStructures.h">
       <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Resource Files\components\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Resource Files\components\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBTree.h">
+      <Filter>Resource Files\components\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="IAABB.h">
+      <Filter>Resource Files\components\AABB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

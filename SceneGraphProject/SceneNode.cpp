@@ -13,11 +13,11 @@ SceneNode::SceneNode(std::string name)
 
 void SceneNode::Start()
 {
-    for (auto component : m_components) {
-        component->Start();
+    for (int i = 0; i < m_components.size(); i++) {
+        m_components[i]->Start();
     }
-    for (auto child : m_children) {
-        child->Start();
+    for (int i = 0; i < m_children.size(); i++) {
+        m_children[i]->Start();
     }
 }
 

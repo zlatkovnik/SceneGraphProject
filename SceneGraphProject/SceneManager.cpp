@@ -12,6 +12,7 @@
 #include "SceneNode.h"
 #include "Model.h"
 #include "ResourceManager.h"
+#include "Collider.h"
 
 SceneNode* LoadChild(json root);
 
@@ -138,6 +139,15 @@ SceneNode* LoadChild(json root) {
                     light->SetIntensity(intensity);
                 }
                 node->AddComponent(light);
+            }
+            else if (c["name"] == "Collider") {
+                json d = c["data"];
+                std::vector<float> max = d["max"];
+                glm::vec3 maxV = glm::vec3(max[0], max[1], max[2]);
+                std::vector<float> min = d["min"];
+                glm::vec3 minV = glm::vec3(min[0], min[1], min[2]);
+                Collider* collider = new Collider(maxV, minV, node);
+                node->AddComponent(collider);
             }
         }
     }

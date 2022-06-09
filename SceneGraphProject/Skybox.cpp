@@ -59,6 +59,7 @@ Skybox::Skybox(std::vector<std::string> faces)
 
 void Skybox::Draw()
 {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindVertexArray(m_vao);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureId);
     glDrawArrays(GL_TRIANGLES, 0, (sizeof(SKYBOX_VERTICES) / sizeof(float)) / 3);

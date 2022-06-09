@@ -8,11 +8,17 @@ Model::Model(std::string const& path, Material* material)
     LoadModel(path);
 }
 
+Model::Model(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, Material* material, bool normalsIncluded)
+    :m_material(material)
+{
+    LoadVertices(vertices, indices, normalsIncluded);
+}
+
 void Model::Render()
 {
     m_material->SetMaterial();
     for (unsigned int i = 0; i < m_meshes.size(); i++) {
-        m_meshes[i].Draw(*m_material->GetShader(), m_instances);
+        m_meshes[i].Draw(*m_material->GetShader(), m_instances, m_wireframe);
     }
 }
 
@@ -29,6 +35,21 @@ void Model::SetMaterial(Material* material)
 Material* Model::GetMaterial()
 {
     return m_material;
+}
+
+void Model::SetWireframe(bool wireframe)
+{
+    m_wireframe = wireframe;
+}
+
+bool Model::GetWireframe() const
+{
+    return m_wireframe;
+}
+
+int Model::GetNumberOfInstances() const
+{
+    return m_instances;
 }
 
 std::unordered_map<std::string, Model*> Model::CachedModels;
@@ -143,4 +164,49 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType 
         textures.push_back(texture);
     }
     return textures;
+}
+
+void Model::LoadVertices(const std::vector<float>& inputVertices, const std::vector<unsigned int>& inputIndices, bool normalsIncluded)
+{
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    int i = 0;
+    while (i < inputVertices.size()) {
+        Vertex vertex;
+        vertex.m_position.x = inputVertices[i++];
+        vertex.m_position.y = inputVertices[i++];
+        vertex.m_position.z = inputVertices[i++];
+
+        if (normalsIncluded) {
+            vertex.m_normal.x = inputVertices[i++];
+            vertex.m_normal.y = inputVertices[i++];
+            vertex.m_normal.z = inputVertices[i++];
+        }
+        else {
+            i += 3;
+        }
+
+        vertex.m_texCoords.x = 0.0f;
+        vertex.m_texCoords.y = 0.0f;
+        i += 2;
+
+        vertices.push_back(vertex);
+    }
+    indices = inputIndices;
+    for (unsigned int i = 0; i < indices.size(); i+=3) {
+        if (!normalsIncluded) {
+            auto a = vertices[indices[i]].m_position;
+            auto b = vertices[indices[i + 1]].m_position;
+            auto c = vertices[indices[i + 2]].m_position;
+            auto dir = glm::cross(b - a, c - a);
+            auto normal = glm::normalize(dir);
+
+            vertices[indices[i]].m_normal = normal;
+            vertices[indices[i + 1]].m_normal = normal;
+            vertices[indices[i + 2]].m_normal = normal;
+        }
+    }
+    std::vector<Texture> dummy;
+    Mesh mesh(vertices, indices, dummy);
+    m_meshes.push_back(mesh);
 }

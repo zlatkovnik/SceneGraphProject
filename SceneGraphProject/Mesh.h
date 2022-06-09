@@ -32,7 +32,7 @@ public:
     std::vector<Texture>      m_textures;
 
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    void Draw(const Shader& shader, int instances = 1);
+    void Draw(const Shader& shader, int instances = 1, bool wireframe = false);
 private:
     void SetupMesh();
 };
