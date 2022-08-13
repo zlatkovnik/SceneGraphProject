@@ -58,7 +58,7 @@ void SceneNode::MakeRenderCommand(std::vector<RenderCommand>& commands, glm::mat
         RenderCommand cmd(m_model, m_model->GetMaterial()->GetShader(), currentTransform);
         commands.push_back(cmd);
     }
-    for (auto child : m_children) {
+    for (auto &child : m_children) {
         child->MakeRenderCommand(commands, currentTransform);
     }
 }

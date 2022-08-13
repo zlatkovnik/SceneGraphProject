@@ -7,6 +7,5 @@ uniform float time;
 
 void main()
 {
-    float timeSine = abs(sin(time));
-    FragColor = vec4(color.xy, color.z * timeSine, 1.0f);
+    FragColor = vec4(color.xy, color.z, 1.0f);
 }

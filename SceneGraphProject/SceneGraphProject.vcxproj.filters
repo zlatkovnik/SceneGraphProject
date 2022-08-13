@@ -245,5 +245,11 @@
     <None Include="noise.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="light-scene.json">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="space.json">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
   </ItemGroup>
 </Project>

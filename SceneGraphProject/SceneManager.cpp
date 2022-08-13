@@ -26,7 +26,7 @@ void SceneManager::LoadScene(const char* path)
 {
     CoreManager::GetInstance().Init(1920, 1080, "My Graph Scene Project");
 
-    std::ifstream stream("test.json");
+    std::ifstream stream(path);
     json scene;
     stream >> scene;
 

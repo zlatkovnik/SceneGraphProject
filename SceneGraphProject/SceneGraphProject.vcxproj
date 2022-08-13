@@ -209,10 +209,12 @@
   <ItemGroup>
     <None Include="ambient_glow.frag" />
     <None Include="ambient_glow.vert" />
+    <None Include="light-scene.json" />
     <None Include="noise.frag" />
     <None Include="noise.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
+    <None Include="space.json" />
     <None Include="standard.frag" />
     <None Include="standard.vert" />
     <None Include="cpp.hint" />

@@ -45,7 +45,7 @@ void RenderManager::RenderAll(SceneNode* root)
             SetLightUniforms(commandByShader.first);
         }
         if (commandByShader.first->GetCustomData()) {
-            for (auto data : commandByShader.first->GetData()) {
+            for (auto& data : commandByShader.first->GetData()) {
                 if (data.second.m_type == "vec3") {
                     glm::vec3 *vec = (glm::vec3*)data.second.m_value;
                     commandByShader.first->SetVec3(data.first.c_str(), *vec);
