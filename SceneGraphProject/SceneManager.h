@@ -11,7 +11,7 @@ public:
 
 	static SceneManager& GetInstance();
 
-	void LoadScene(const char* path);
+	void LoadScene(const char* path, const char* title = "No Title!", unsigned int screenWidth = 800, unsigned int screenHeight = 600);
 	void RunScene();
 private:
 	SceneManager() {}

@@ -65,6 +65,10 @@ glm::vec3 Transform::GetPosition() const
 	return m_position;
 }
 
+glm::vec3 Transform::GetRotation() const {
+	return glm::vec3(m_pitch, m_yaw, m_roll);
+}
+
 glm::mat4 Transform::GetWorldTransformMatrix(Transform* currentTransform)
 {
 	glm::mat4 currentMatrix = currentTransform->GetTransformMatrix();
@@ -107,9 +111,9 @@ void Transform::UpdateTransformMatrix()
 	const glm::mat4 transformY = glm::rotate(glm::mat4(1.0f), m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));
 	const glm::mat4 transformZ = glm::rotate(glm::mat4(1.0f), m_roll, glm::vec3(0.0f, 0.0f, 1.0f));
 
-	const glm::mat4 roationMatrix = transformY * transformX * transformZ;
+	const glm::mat4 rotationMatrix = transformY * transformX * transformZ;
 
-	m_cachedTransformMatrix = glm::translate(glm::mat4(1.0f), m_position) * roationMatrix * glm::scale(glm::mat4(1.0f), m_scale);
+	m_cachedTransformMatrix = glm::translate(glm::mat4(1.0f), m_position) * rotationMatrix * glm::scale(glm::mat4(1.0f), m_scale);
 }
 
 glm::mat4 Transform::GetTransformMatrix() const

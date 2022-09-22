@@ -221,6 +221,9 @@
     <ClInclude Include="SpaceScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rotator2.h">
+      <Filter>Resource Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -258,6 +261,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="dungeon.json">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="crates.json">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>

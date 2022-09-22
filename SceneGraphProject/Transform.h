@@ -31,6 +31,7 @@ public:
 	void SetParent(Transform* transform);
 	Transform* GetParent() const;
 	glm::vec3 GetPosition() const;
+	glm::vec3 GetRotation() const;
 	static glm::mat4 GetWorldTransformMatrix(Transform* currentTransform);
 	static void GetPositionRotationAndScale(glm::mat4 &mat, glm::vec3 &position, glm::vec3 &rotation, glm::vec3 scale);
 private:

@@ -1,0 +1,64 @@
+{
+  "assets": {
+    "shaders": [
+      {
+        "name": "skybox",
+        "vertex": "skybox.vert",
+        "fragment": "skybox.frag",
+        "shadingEnabled": false,
+        "customData": false,
+        "timeInput": false
+      },
+      {
+        "name": "standard",
+        "vertex": "standard.vert",
+        "fragment": "standard.frag",
+        "shadingEnabled": true,
+        "customData": false,
+        "timeInput": false
+      }
+    ],
+    "textures": [ "Crate/diffuse.jpg" ],
+    "materials": [
+      {
+        "name": "standard",
+        "shader": "standard",
+        "ambient": [ 0.1, 0.1, 0.1 ],
+        "diffuse": [ 1.0, 1.0, 1.0 ],
+        "specular": [ 0.5, 0.5, 0.5 ],
+        "shininess": 32.0
+      }
+    ]
+  },
+  "camera": {
+
+  },
+  "skybox": {
+    "faces": [
+      "skybox/right.jpg",
+      "skybox/left.jpg",
+      "skybox/top.jpg",
+      "skybox/bottom.jpg",
+      "skybox/front.jpg",
+      "skybox/back.jpg"
+    ]
+  },
+  "models": {
+    "name": "root",
+    "transform": {
+      "position": [ 0.0, 0.0, 0.0 ],
+      "rotation": [ 0.0, 0.0, 0.0 ],
+      "scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "components": [
+      {
+        "name": "DirectionalLight",
+        "data": {
+          "direction": [ -1.0, -1.0, -1.0 ],
+          "intensity": 1.0,
+          "color": [ 1.0, 1.0, 1.0 ]
+        }
+      }
+    ]
+  }
+}

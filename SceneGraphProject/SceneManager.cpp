@@ -22,9 +22,9 @@ SceneManager& SceneManager::GetInstance()
     return instance;
 }
 
-void SceneManager::LoadScene(const char* path)
+void SceneManager::LoadScene(const char* path, const char* title, unsigned int screenWidth, unsigned int screenHeight)
 {
-    CoreManager::GetInstance().Init(1920, 1080, "My Graph Scene Project");
+    CoreManager::GetInstance().Init(screenWidth, screenHeight, title);
 
     std::ifstream stream(path);
     json scene;

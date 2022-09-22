@@ -7,6 +7,7 @@
 
 #include "Collider.h"
 #include "Rotator.h"
+#include "Rotator2.h"
 #include "Revolutor.h"
 
 #include <glad/glad.h>
@@ -44,15 +45,43 @@ void spaceConfig() {
 	}
 }
 
+void cratesConfig() {
+	Shader* shader = &ResourceManager::GetInstance().ShaderLookup["standard"];
+	Material* material = &Material::MaterialLookup["standard"];
+	material->SetShader(shader);
+	Model* crateModel = new Model("Crate/Crate1.obj", material);
+
+	CoreManager::GetInstance().GetRootNode()->GetTransform().SetScale(glm::vec3(0.1f));
+	SceneNode* prevNode = CoreManager::GetInstance().GetRootNode();
+	for (int i = 0; i < 126; i++) {
+		SceneNode* crate = new SceneNode("crate" + std::to_string(i));
+		crateModel->IncrementInstances();
+		crate->AddComponent((Component*)crateModel);
+
+		crate->GetTransform().Translate(glm::vec3(0.0f, 2.0f, 0.0f));
+		//crate->GetTransform().Rotate(glm::pi<float>() / 6, 0.0f, 0.0f);
+
+		Rotator2* rotator = new Rotator2(&crate->GetTransform(), 0.01f, glm::vec3(1.0f, 0.0f, 1.0f));
+		crate->AddComponent(rotator);
+
+		prevNode->AppendChild(crate);
+		prevNode = crate;
+	}
+}
+
 
 int main() {
 	SceneManager* sceneManager = &SceneManager::GetInstance();
 	// Space
-	sceneManager->LoadScene("space.json");
-	spaceConfig();
+	//sceneManager->LoadScene("space.json", "Asteroids!", 1440, 1080);
+	//spaceConfig();
 
 	// Dungeon
-	//sceneManager->LoadScene("dungeon.json");
+	//sceneManager->LoadScene("dungeon.json", "DnD", 1440, 1080);
+
+	// Crates
+	sceneManager->LoadScene("crates.json", "Magic Crates", 1440, 1080);
+	cratesConfig();
 
 	sceneManager->RunScene();
 	return 0;

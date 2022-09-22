@@ -201,6 +201,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Revolutor.h" />
     <ClInclude Include="Rotator.h" />
+    <ClInclude Include="Rotator2.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="Shader.h" />
@@ -211,6 +212,7 @@
   <ItemGroup>
     <None Include="ambient_glow.frag" />
     <None Include="ambient_glow.vert" />
+    <None Include="crates.json" />
     <None Include="dungeon.json" />
     <None Include="light-scene.json" />
     <None Include="noise.frag" />
