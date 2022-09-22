@@ -97,11 +97,19 @@ void Transform::UpdateTransformMatrix()
 	// Rotacija oko proizvoljne ose
 	// Razmisliti o redosledu transformacija
 	// I visestrukim transformacijama
-	m_cachedTransformMatrix = glm::translate(glm::mat4(1.0f), m_position);
-	m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_pitch, glm::vec3(1.0f, 0.0f, 0.0f));
-	m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));
-	m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_roll, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_cachedTransformMatrix = glm::scale(m_cachedTransformMatrix, m_scale);
+	//m_cachedTransformMatrix = glm::translate(glm::mat4(1.0f), m_position);
+	//m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_pitch, glm::vec3(1.0f, 0.0f, 0.0f));
+	//m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+	//m_cachedTransformMatrix = glm::rotate(m_cachedTransformMatrix, m_roll, glm::vec3(0.0f, 0.0f, 1.0f));
+	//m_cachedTransformMatrix = glm::scale(m_cachedTransformMatrix, m_scale);
+
+	const glm::mat4 transformX = glm::rotate(glm::mat4(1.0f), m_pitch, glm::vec3(1.0f, 0.0f, 0.0f));
+	const glm::mat4 transformY = glm::rotate(glm::mat4(1.0f), m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+	const glm::mat4 transformZ = glm::rotate(glm::mat4(1.0f), m_roll, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	const glm::mat4 roationMatrix = transformY * transformX * transformZ;
+
+	m_cachedTransformMatrix = glm::translate(glm::mat4(1.0f), m_position) * roationMatrix * glm::scale(glm::mat4(1.0f), m_scale);
 }
 
 glm::mat4 Transform::GetTransformMatrix() const

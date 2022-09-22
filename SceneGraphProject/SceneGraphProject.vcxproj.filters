@@ -215,6 +215,12 @@
     <ClInclude Include="IAABB.h">
       <Filter>Resource Files\components\AABB</Filter>
     </ClInclude>
+    <ClInclude Include="Revolutor.h">
+      <Filter>Resource Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -249,6 +255,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="space.json">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="dungeon.json">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>

@@ -199,16 +199,19 @@
     <ClInclude Include="RenderCommand.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Revolutor.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="SpaceScene.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ambient_glow.frag" />
     <None Include="ambient_glow.vert" />
+    <None Include="dungeon.json" />
     <None Include="light-scene.json" />
     <None Include="noise.frag" />
     <None Include="noise.vert" />

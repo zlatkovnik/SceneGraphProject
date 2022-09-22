@@ -68,18 +68,6 @@
             }
           }
         ]
-      },
-      {
-        "name": "rock",
-        "transform": {
-          "position": [ 0.0, 0.0, -20.0 ],
-          "rotation": [ 0.0, 0.0, 0.0 ],
-          "scale": [ 1.0, 1.0, 1.0 ]
-        },
-        "model": {
-          "path": "rock/rock.obj",
-          "material": "standard"
-        }
       }
     ]
   }

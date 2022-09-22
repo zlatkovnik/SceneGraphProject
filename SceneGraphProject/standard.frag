@@ -76,7 +76,7 @@ void main()
     vec3 viewDir = normalize(viewPos - FragPos);
 
     // Directional lighting
-    vec3 result = vec3(0.0f, 0.0f, 0.0f);
+    vec3 result = vec3(0.01f, 0.01f, 0.01f);
     for(int i = 0; i < directionalLightsCount; i++){
         result += CalcDirLight(directionalLights[i], norm, viewDir);
     }
