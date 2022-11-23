@@ -62,12 +62,12 @@ public:
 		m_aabb.get()->GetAABB().SetMax(max);
 		m_aabb.get()->GetAABB().SetMin(min);
 		auto overlaps = m_tree.QueryOverlaps(m_aabb);
-		for (auto &overlap : overlaps) {
-			clock_t time = clock();
-			std::cout
-				<< double(time) << " :: "
-				<< m_aabb.get()->GetAABB().GetNode()->GetName()
-				<< std::endl;
+		auto myName = m_node->GetName();
+		if (myName == "box") {
+			for (auto& overlap : overlaps) {
+				std::string overlapName = overlap.get()->GetAABB().GetNode()->GetName();
+				std::cout << myName << " :: " << overlapName << std::endl;
+			}
 		}
 	}
 

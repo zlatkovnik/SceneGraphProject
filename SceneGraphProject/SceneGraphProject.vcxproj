@@ -162,6 +162,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="EventObserver.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="HarmonicTranslate.h" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -207,6 +208,8 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpaceScene.h" />
+    <ClInclude Include="StickmanAnimation.h" />
+    <ClInclude Include="ToggleHide.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +226,7 @@
     <None Include="standard.frag" />
     <None Include="standard.vert" />
     <None Include="cpp.hint" />
+    <None Include="stickman.json" />
     <None Include="test.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

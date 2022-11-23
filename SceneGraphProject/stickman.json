@@ -1,0 +1,238 @@
+{
+  "assets": {
+    "shaders": [
+      {
+        "name": "skybox",
+        "vertex": "skybox.vert",
+        "fragment": "skybox.frag",
+        "shadingEnabled": false,
+        "customData": false,
+        "timeInput": false
+      },
+      {
+        "name": "standard",
+        "vertex": "standard.vert",
+        "fragment": "standard.frag",
+        "shadingEnabled": true,
+        "customData": false,
+        "timeInput": false
+      },
+      {
+        "name": "ambient_glow",
+        "vertex": "ambient_glow.vert",
+        "fragment": "ambient_glow.frag",
+        "shadingEnabled": false,
+        "customData": true,
+        "timeInput": true,
+        "data": {
+          "color": {
+            "type": "vec3",
+            "value": [ 1.0, 1.0, 1.0 ]
+          }
+        }
+      }
+    ],
+    "textures": [ "backpack/diffuse.jpg", "backpack/normal.png" ],
+    "materials": [
+      {
+        "name": "standard",
+        "shader": "standard",
+        "ambient": [ 0.1, 0.1, 0.1 ],
+        "diffuse": [ 1.0, 1.0, 1.0 ],
+        "specular": [ 0.5, 0.5, 0.5 ],
+        "shininess": 32.0
+      },
+      {
+        "name": "ambient_glow",
+        "shader": "ambient_glow",
+        "ambient": [ 0.0, 0.6, 0.09 ],
+        "diffuse": [ 0.0, 0.0, 0.0 ],
+        "specular": [ 0.0, 0.0, 0.0 ],
+        "shininess": 0.0
+      }
+    ]
+  },
+  "camera": {
+
+  },
+  "skybox": {
+    "faces": [
+      "skybox/right.jpg",
+      "skybox/left.jpg",
+      "skybox/top.jpg",
+      "skybox/bottom.jpg",
+      "skybox/front.jpg",
+      "skybox/back.jpg"
+    ]
+  },
+  "models": {
+    "name": "root",
+    "transform": {
+      "position": [ 0.0, 0.0, 0.0 ],
+      "rotation": [ 0.0, 0.0, 0.0 ],
+      "scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "children": [
+      {
+        "name": "torso",
+        "transform": {
+          "position": [ 0.0, 0.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "model": {
+          "path": "stick/stick.obj",
+          "material": "ambient_glow"
+        },
+        "children": [
+          {
+            "name": "backpack",
+            "transform": {
+              "position": [ 0.0, 1.8, -0.35 ],
+              "rotation": [ 0.0, 3.14, 0.0 ],
+              "scale": [ 0.2, 0.2, 0.2 ]
+            },
+            "model": {
+              "path": "backpack/backpack.obj",
+              "material": "standard"
+            }
+          },
+          {
+            "name": "head",
+            "transform": {
+              "position": [ 0.0, 2.1, 0.0 ],
+              "rotation": [ 0.0, 0.0, 0.0 ],
+              "scale": [ 2.2, 0.3, 1.4 ]
+            },
+            "model": {
+              "path": "stick/stick.obj",
+              "material": "ambient_glow"
+            },
+            "children": [
+              {
+                "name": "head",
+                "transform": {
+                  "position": [ 0.0, 1.2, 0.13 ],
+                  "rotation": [ 0.0, 0.0, 0.0 ],
+                  "scale": [ 0.025, 0.25, 0.025 ]
+                },
+                "model": {
+                  "path": "sunglasses/sunglasses.obj",
+                  "material": "standard"
+                }
+              }
+            ]
+          },
+          {
+            "name": "leftLeg",
+            "transform": {
+              "position": [ 0.2, 0.0, 0.0 ],
+              "rotation": [ 3.14, 0.0, -0.2 ],
+              "scale": [ 1.0, 1.0, 1.0 ]
+            },
+            "model": {
+              "path": "stick/stick.obj",
+              "material": "ambient_glow"
+            },
+            "children": [
+              {
+                "name": "leftFoot",
+                "transform": {
+                  "position": [ 0.0, 1.88, 0.0 ],
+                  "rotation": [ -1.57, 0.0, 0.0 ],
+                  "scale": [ 1.0, 0.3, 1.2 ]
+                },
+                "model": {
+                  "path": "stick/stick.obj",
+                  "material": "ambient_glow"
+                }
+              }
+            ]
+          },
+          {
+            "name": "rightLeg",
+            "transform": {
+              "position": [ -0.2, 0.0, 0.0 ],
+              "rotation": [ 3.14, 0.0, 0.2 ],
+              "scale": [ 1.0, 1.0, 1.0 ]
+            },
+            "model": {
+              "path": "stick/stick.obj",
+              "material": "ambient_glow"
+            },
+            "children": [
+              {
+                "name": "rightFoot",
+                "transform": {
+                  "position": [ 0.0, 1.88, 0.0 ],
+                  "rotation": [ -1.57, 0.0, 0.0 ],
+                  "scale": [ 1.0, 0.3, 1.2 ]
+                },
+                "model": {
+                  "path": "stick/stick.obj",
+                  "material": "ambient_glow"
+                }
+              }
+            ]
+          },
+          {
+            "name": "leftArm",
+            "transform": {
+              "position": [ 0.2, 2.0, 0.0 ],
+              "rotation": [ 3.14, 0.0, -0.3 ],
+              "scale": [ 1.0, 0.8, 1.0 ]
+            },
+            "model": {
+              "path": "stick/stick.obj",
+              "material": "ambient_glow"
+            }
+          },
+          {
+            "name": "rightArm",
+            "transform": {
+              "position": [ -0.2, 2.0, 0.0 ],
+              "rotation": [ 3.14, 0.0, 0.3 ],
+              "scale": [ 1.0, 0.8, -1.0 ]
+            },
+            "model": {
+              "path": "stick/stick.obj",
+              "material": "ambient_glow"
+            },
+            "children": [
+              {
+                "name": "stick",
+                "transform": {
+                  "position": [ 0.0, 1.8, 0.0 ],
+                  "rotation": [ 1.57, 0.0, 0.0 ],
+                  "scale": [ 0.3, 0.7, 0.3 ]
+                },
+                "model": {
+                  "path": "stick/stick.obj",
+                  "material": "ambient_glow"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sun",
+        "transform": {
+          "position": [ 0.0, 0.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "components": [
+          {
+            "name": "DirectionalLight",
+            "data": {
+              "direction": [ -1.0, -1.0, -1.0 ],
+              "intensity": 1.0,
+              "color": [ 1.0, 1.0, 1.0 ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

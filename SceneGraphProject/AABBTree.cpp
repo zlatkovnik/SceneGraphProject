@@ -108,7 +108,6 @@ std::forward_list<std::shared_ptr<IAABB>> AABBTree::QueryOverlaps(const std::sha
 			}
 		}
 	}
-
 	return overlaps;
 }
 

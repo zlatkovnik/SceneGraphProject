@@ -30,7 +30,7 @@ void RenderManager::RenderAll(SceneNode* root)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glm::mat4 view = camera->GetViewMatrix();
-    glm::mat4 projection = glm::perspective(glm::radians(camera->GetZoom()), (float)(width / height), 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(camera->GetZoom()), (float)(width / height), 0.1f, 1000.0f);
     // Instanced rendering
     static std::vector<RenderCommand> commands(1024);
     commands.clear();

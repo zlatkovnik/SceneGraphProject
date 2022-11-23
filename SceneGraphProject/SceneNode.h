@@ -13,6 +13,7 @@ private:
 	std::vector<SceneNode*> m_children;
 	std::vector<Component*> m_components;
 	Model* m_model = nullptr;
+	SceneNode* m_parentNode = nullptr;
 public:
 	SceneNode(std::string name);
 
@@ -24,11 +25,14 @@ public:
 
 	void AppendChild(SceneNode* node);
 	std::vector<SceneNode*> GetChildren();
+	void DetachChild(SceneNode* child);
 	void AddComponent(Component* component);
 	std::vector<Component*> GetComponents();
 	Component* GetComponent(const char* className);
-	std::string GetName();
+	std::string GetName() const;
 	bool IsLeaf();
+	void SetParentNode(SceneNode* parentNode);
+	SceneNode* GetParentNode();
 
 	Transform& GetTransform();
 };

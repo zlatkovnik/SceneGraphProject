@@ -132,6 +132,9 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Resource Files\components\AABB</Filter>
     </ClCompile>
+    <ClCompile Include="HarmonicTranslate.h">
+      <Filter>Resource Files\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -224,6 +227,12 @@
     <ClInclude Include="Rotator2.h">
       <Filter>Resource Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="StickmanAnimation.h">
+      <Filter>Resource Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleHide.h">
+      <Filter>Resource Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -264,6 +273,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="crates.json">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="stickman.json">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>

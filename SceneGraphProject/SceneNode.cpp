@@ -65,12 +65,21 @@ void SceneNode::MakeRenderCommand(std::vector<RenderCommand>& commands, glm::mat
 
 void SceneNode::AppendChild(SceneNode* node)
 {
+    node->SetParentNode(this);
     m_children.push_back(node);
 }
 
 std::vector<SceneNode*> SceneNode::GetChildren()
 {
     return m_children;
+}
+
+void SceneNode::DetachChild(SceneNode* child)
+{
+    auto it = std::remove_if(m_children.begin(), m_children.end(), [=](const SceneNode* sn) {
+        return sn->GetName() == child->GetName();
+        });
+    m_children.erase(it, it + 1);
 }
 
 void SceneNode::AddComponent(Component* component)
@@ -102,7 +111,7 @@ Component* SceneNode::GetComponent(const char* className)
     return nullptr;
 }
 
-std::string SceneNode::GetName()
+std::string SceneNode::GetName() const
 {
     return m_name;
 }
@@ -110,6 +119,16 @@ std::string SceneNode::GetName()
 bool SceneNode::IsLeaf()
 {
     return m_children.size() == 0;
+}
+
+void SceneNode::SetParentNode(SceneNode* parentNode)
+{
+    m_parentNode = parentNode;
+}
+
+SceneNode* SceneNode::GetParentNode()
+{
+    return m_parentNode;
 }
 
 Transform& SceneNode::GetTransform()

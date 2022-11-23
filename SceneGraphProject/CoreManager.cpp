@@ -180,7 +180,7 @@ void CoreManager::Run()
         m_deltaTime = currentFrame - m_lastFrame;
         m_lastFrame = currentFrame;
 
-        std::cout << 1000 / m_deltaTime / 1000 << std::endl;
+        //std::cout << 1000 / m_deltaTime / 1000 << std::endl;
 
         HandleInput(m_window);
 
