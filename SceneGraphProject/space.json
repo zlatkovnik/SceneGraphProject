@@ -5,17 +5,12 @@
         "name": "skybox",
         "vertex": "skybox.vert",
         "fragment": "skybox.frag",
-        "shadingEnabled": false,
-        "customData": false,
-        "timeInput": false
+        "shadingEnabled": false
       },
       {
         "name": "standard",
         "vertex": "standard.vert",
-        "fragment": "standard.frag",
-        "shadingEnabled": true,
-        "customData": false,
-        "timeInput": false
+        "fragment": "standard.frag"
       }
     ],
     "textures": [ "rock/diffuse.png" ],
@@ -29,9 +24,6 @@
         "shininess": 32.0
       }
     ]
-  },
-  "camera": {
-
   },
   "skybox": {
     "faces": [
@@ -53,16 +45,11 @@
     "children": [
       {
         "name": "sun",
-        "transform": {
-          "position": [ 0.0, 0.0, 0.0 ],
-          "rotation": [ 0.0, 0.0, 0.0 ],
-          "scale": [ 1.0, 1.0, 1.0 ]
-        },
         "components": [
           {
             "name": "DirectionalLight",
             "data": {
-              "direction": [ -1.0, -1.0, -1.0 ],
+              "direction": [ -1.0, -1.0, 1.0 ],
               "intensity": 1.0,
               "color": [ 1.0, 1.0, 1.0 ]
             }

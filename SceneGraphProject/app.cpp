@@ -130,12 +130,12 @@ void collisionConfig() {
 int main() {
 	SceneManager* sceneManager = &SceneManager::GetInstance();
 	// Space
-	//sceneManager->LoadScene("space.json", "Asteroids!", 1440, 1080);
-	//spaceConfig();
+	sceneManager->LoadScene("space.json", "Meteors!", 1440, 1080);
+	spaceConfig();
 
 	// Dungeon
-	sceneManager->LoadScene("dungeon.json", "DnD", 1440, 1080);
-	dungeonConfig();
+	//sceneManager->LoadScene("dungeon.json", "DnD", 1440, 1080);
+	//dungeonConfig();
 
 	// Crates
 	//sceneManager->LoadScene("crates.json", "Magic Crates", 1440, 1080);

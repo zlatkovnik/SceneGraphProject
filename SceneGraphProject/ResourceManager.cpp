@@ -26,12 +26,12 @@ void ResourceManager::LoadShaders(json shaders)
         std::string vertex = shader["vertex"];
         std::string fragment = shader["fragment"];
         Shader s(vertex.c_str(), fragment.c_str());
-        s.SetShading(shader["shadingEnabled"]);
-        s.SetTimeInput(shader["timeInput"]);
+        s.SetShading(shader["shadingEnabled"].is_null() ? true : (bool)shader["shadingEnabled"]);
+        s.SetTimeInput(shader["timeInput"].is_null() ? false : (bool)shader["timeInput"]);
         std::string name = shader["name"];
-        bool customData = shader["customData"];
-        s.SetCustomData(customData);
+        bool customData = shader["customData"].is_null() ? false : (bool)shader["customData"];
         if (customData) {
+            s.SetCustomData(customData);
             json data = shader["data"];
             for (auto it : data.items()) {
                 std::string type = it.value()["type"];
