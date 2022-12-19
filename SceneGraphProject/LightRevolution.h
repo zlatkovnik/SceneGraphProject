@@ -23,7 +23,7 @@ public:
 	}
 
 	void KeyPress(int key, int action) override {
-		if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+		if (key == 82 && action == 1) {
 			m_moving = !m_moving;
 		}
 	};

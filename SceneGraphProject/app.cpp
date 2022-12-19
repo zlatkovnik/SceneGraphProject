@@ -9,7 +9,7 @@
 #include "Rotator.h"
 #include "Rotator2.h"
 #include "Revolutor.h"
-#include "StickmanAnimation.h"
+#include "SkeletalAnimation.h"
 #include "HarmonicTranslate.h"
 #include "ToggleHide.h"
 
@@ -115,13 +115,15 @@ void cratesConfig() {
 }
 
 void stickmanConfig() {
-	SceneNode* torsoNode = CoreManager::GetInstance().GetNode("torso", CoreManager::GetInstance().GetRootNode());
-	Component* stickmanAnimation = new StickmanAnimation(torsoNode);
+	CoreManager* coreManager = &CoreManager::GetInstance();
+	SceneNode* torsoNode = coreManager->GetNode("torso", coreManager->GetRootNode());
+	Component* stickmanAnimation = new SkeletalAnimation(torsoNode);
 	torsoNode->AddComponent(stickmanAnimation);
 }
 
 void collisionConfig() {
-	SceneNode* movingCollider = CoreManager::GetInstance().GetNode("box", CoreManager::GetInstance().GetRootNode());
+	auto coreManager = &CoreManager::GetInstance();
+	SceneNode* movingCollider = coreManager->GetNode("box", coreManager->GetRootNode());
 	Component* harmonicTranslate = new HarmonicTranslate(&movingCollider->GetTransform(), 1.0f);
 	movingCollider->AddComponent(harmonicTranslate);
 }
@@ -130,8 +132,8 @@ void collisionConfig() {
 int main() {
 	SceneManager* sceneManager = &SceneManager::GetInstance();
 	// Space
-	sceneManager->LoadScene("space.json", "Meteors!", 1440, 1080);
-	spaceConfig();
+	//sceneManager->LoadScene("space.json", "Meteors!", 1440, 1080);
+	//spaceConfig();
 
 	// Dungeon
 	//sceneManager->LoadScene("dungeon.json", "DnD", 1440, 1080);
@@ -142,8 +144,8 @@ int main() {
 	//cratesConfig();
 
 	// Stickman
-	//sceneManager->LoadScene("stickman.json", "Stickman", 1440, 1080);
-	//stickmanConfig();
+	sceneManager->LoadScene("stickman.json", "Stickman", 1440, 1080);
+	stickmanConfig();
 
 	// AABB
 	//sceneManager->LoadScene("test.json", "AABB", 1440, 1080);

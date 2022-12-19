@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{80af7527-b0d2-4abd-9ec3-b8aec777fd21}</ProjectGuid>
-    <RootNamespace>SceneGraphProject</RootNamespace>
+    <ProjectGuid>{908f198d-e9bb-4179-a81b-fd836981b72c}</ProjectGuid>
+    <RootNamespace>SceneGraphProjectTestBed</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,26 +70,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\SceneGraphProject\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\SceneGraphProject\Libraries\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\SceneGraphProject\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\SceneGraphProject\Libraries\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\SceneGraphProject\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\SceneGraphProject\Libraries\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\SceneGraphProject\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\SceneGraphProject\Libraries\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -100,7 +80,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,7 +96,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +108,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,87 +124,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AABB.cpp" />
-    <ClCompile Include="AABBTree.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="CoreManager.cpp" />
-    <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="EventObserver.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="HarmonicTranslate.h" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="PointLight.cpp" />
-    <ClCompile Include="RenderCommand.cpp" />
-    <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SceneNode.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Skybox.cpp" />
-    <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="Transform.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AABB.h" />
-    <ClInclude Include="AABBTree.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraController.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="CoreManager.h" />
-    <ClInclude Include="DataStructures.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="EventObserver.h" />
-    <ClInclude Include="IAABB.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="LightRevolution.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="RenderCommand.h" />
-    <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="Revolutor.h" />
-    <ClInclude Include="Rotator.h" />
-    <ClInclude Include="Rotator2.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SceneNode.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Skybox.h" />
-    <ClInclude Include="SpaceScene.h" />
-    <ClInclude Include="SkeletalAnimation.h" />
-    <ClInclude Include="ToggleHide.h" />
-    <ClInclude Include="Transform.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ambient_glow.frag" />
-    <None Include="ambient_glow.vert" />
-    <None Include="crates.json" />
-    <None Include="dungeon.json" />
-    <None Include="light-scene.json" />
-    <None Include="noise.frag" />
-    <None Include="noise.vert" />
-    <None Include="skybox.frag" />
-    <None Include="skybox.vert" />
-    <None Include="space.json" />
-    <None Include="standard.frag" />
-    <None Include="standard.vert" />
-    <None Include="cpp.hint" />
-    <None Include="stickman.json" />
-    <None Include="test.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

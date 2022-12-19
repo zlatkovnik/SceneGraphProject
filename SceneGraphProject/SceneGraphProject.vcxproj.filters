@@ -227,7 +227,7 @@
     <ClInclude Include="Rotator2.h">
       <Filter>Resource Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="StickmanAnimation.h">
+    <ClInclude Include="SkeletalAnimation.h">
       <Filter>Resource Files\components</Filter>
     </ClInclude>
     <ClInclude Include="ToggleHide.h">

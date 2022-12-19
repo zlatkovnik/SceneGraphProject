@@ -91,26 +91,14 @@
     "children": [
       {
         "name": "backpack",
-        "transform": {
-          "position": [ 1.0, 1.0, 1.0 ],
-          "rotation": [ 0.0, 0.0, 0.0 ],
-          "scale": [ 1.0, 1.0, 1.0 ]
-        },
-        "model": {
-          "path": "backpack/backpack.obj"
-        },
+        "model": { "path": "backpack/backpack.obj" },
         "components": [
           {
             "name": "Collider",
-            "data": {
-              "max": [ 1.5, 1.7, 0.2 ],
-              "min": [ -1.5, -1.7, -1.0 ]
-            }
-          }
-        ]
+            "data": { "max": [ 1.5, 1.7, 0.2 ], "min": [ -1.5, -1.7, -1.0 ] } } ]
       },
       {
-        "name": "box",
+        "name": "box", 
         "transform": {
           "position": [ 0.0, 0.0, 0.0 ],
           "rotation": [ 0.0, 0.0, 0.0 ],
