@@ -84,10 +84,22 @@ void spaceConfig() {
 	}
 }
 
+void lightsConfig() {
+	//light_sphere
+	SceneNode* lightSphere = CoreManager::GetInstance().GetNode("light_sphere", CoreManager::GetInstance().GetRootNode());
+	PointLight* light = (PointLight*)lightSphere->GetComponent("class PointLight");
+	Component* lightRevolution = new LightRevolution(light);
+	lightSphere->AddComponent(lightRevolution);
+}
+
 void dungeonConfig() {
 	SceneNode* propsContainer = CoreManager::GetInstance().GetNode("propsContainer", CoreManager::GetInstance().GetRootNode());
-	Component* toggleHide = new ToggleHide(propsContainer);
-	propsContainer->AddComponent(toggleHide);
+	Component* toggleHideProps = new ToggleHide(propsContainer, GLFW_KEY_R);
+	propsContainer->AddComponent(toggleHideProps);
+
+	SceneNode* wallsContainer = CoreManager::GetInstance().GetNode("wallsContainer", CoreManager::GetInstance().GetRootNode());
+	Component* toggleHideWalls = new ToggleHide(wallsContainer, GLFW_KEY_Q);
+	wallsContainer->AddComponent(toggleHideWalls);
 }
 
 void cratesConfig() {
@@ -132,23 +144,27 @@ void collisionConfig() {
 int main() {
 	SceneManager* sceneManager = &SceneManager::GetInstance();
 	// Space
-	//sceneManager->LoadScene("space.json", "Meteors!", 1440, 1080);
+	//sceneManager->LoadScene("space.json", "Meteors!", 1440, 1080, true);
 	//spaceConfig();
 
+	// Lights
+	sceneManager->LoadScene("light-scene.json", "Lights", 1440, 1080, true);
+	lightsConfig();
+
 	// Dungeon
-	//sceneManager->LoadScene("dungeon.json", "DnD", 1440, 1080);
+	//sceneManager->LoadScene("dungeon.json", "DnD", 1440, 1080, true);
 	//dungeonConfig();
 
 	// Crates
-	//sceneManager->LoadScene("crates.json", "Magic Crates", 1440, 1080);
+	//sceneManager->LoadScene("crates.json", "Magic Crates", 1440, 1080, true);
 	//cratesConfig();
 
 	// Stickman
-	sceneManager->LoadScene("stickman.json", "Stickman", 1440, 1080);
-	stickmanConfig();
+	//sceneManager->LoadScene("stickman.json", "Stickman", 1440, 1080, true);
+	//stickmanConfig();
 
 	// AABB
-	//sceneManager->LoadScene("test.json", "AABB", 1440, 1080);
+	//sceneManager->LoadScene("test.json", "AABB", 1440, 1080, true);
 	//collisionConfig();
 
 	sceneManager->RunScene();

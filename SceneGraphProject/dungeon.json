@@ -70,16 +70,26 @@
         }
       },
       {
-        "name": "walls",
+        "name": "wallsContainer",
         "transform": {
           "position": [ 0.0, 0.0, 0.0 ],
           "rotation": [ 0.0, 0.0, 0.0 ],
           "scale": [ 1.0, 1.0, 1.0 ]
         },
-        "model": {
-          "path": "dungeon/walls/walls.obj",
-          "material": "standard"
-        }
+        "children": [
+          {
+            "name": "walls",
+            "transform": {
+              "position": [ 0.0, 0.0, 0.0 ],
+              "rotation": [ 0.0, 0.0, 0.0 ],
+              "scale": [ 1.0, 1.0, 1.0 ]
+            },
+            "model": {
+              "path": "dungeon/walls/walls.obj",
+              "material": "standard"
+            }
+          }
+        ]
       },
       {
         "name": "propsContainer",

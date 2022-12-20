@@ -72,6 +72,11 @@ float CoreManager::GetDeltaTime()
     return m_deltaTime;
 }
 
+float CoreManager::GetLastFrameTime() 
+{
+    return m_lastFrame;
+}
+
 void CoreManager::HandleMouseMove(double newX, double newY)
 {
     for (int i = 0; i < m_observers.size(); i++) {
@@ -136,7 +141,7 @@ SceneNode* CoreManager::GetNode(std::string name, SceneNode* node)
     return nullptr;
 }
 
-void CoreManager::Init(int width, int height, std::string name)
+void CoreManager::Init(int width, int height, std::string name, bool fullScreen)
 {
     m_width = width;
     m_height = height;
@@ -148,7 +153,15 @@ void CoreManager::Init(int width, int height, std::string name)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
-	m_window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor(); // The primary monitor.. Later Occulus?..
+
+    if (fullScreen) {
+        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        m_width = mode->width;
+        m_height = mode->height;
+    }
+
+	m_window = glfwCreateWindow(m_width, m_height, name.c_str(), fullScreen ? monitor : NULL, NULL);
 	if (m_window == NULL) {
 		std::cout << "Failed to create window" << std::endl;
 		glfwTerminate();

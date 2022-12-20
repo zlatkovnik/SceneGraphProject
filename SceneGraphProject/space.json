@@ -11,6 +11,20 @@
         "name": "standard",
         "vertex": "standard.vert",
         "fragment": "standard.frag"
+      },
+      {
+        "name": "ambient_glow",
+        "vertex": "ambient_glow.vert",
+        "fragment": "ambient_glow.frag",
+        "shadingEnabled": false,
+        "customData": true,
+        "timeInput": true,
+        "data": {
+          "color": {
+            "type": "vec3",
+            "value": [ 1.0, 1.0, 1.0 ]
+          }
+        }
       }
     ],
     "textures": [ "rock/diffuse.png" ],
@@ -22,6 +36,14 @@
         "diffuse": [ 1.0, 1.0, 1.0 ],
         "specular": [ 0.5, 0.5, 0.5 ],
         "shininess": 32.0
+      },
+      {
+        "name": "ambient_glow",
+        "shader": "ambient_glow",
+        "ambient": [ 0.97, 0.86, 0.67 ],
+        "diffuse": [ 0.0, 0.0, 0.0 ],
+        "specular": [ 0.0, 0.0, 0.0 ],
+        "shininess": 0.0
       }
     ]
   },
@@ -43,6 +65,18 @@
       "scale": [ 1.0, 1.0, 1.0 ]
     },
     "children": [
+      {
+        "name": "Hvala na paznji",
+        "transform": {
+          "position": [ 0.0, 0.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "scale": [ -2.0, 2.0, 2.0 ]
+        },
+        "model": {
+          "path": "hvala_na_paznji/hvala na paznji.obj",
+          "material": "ambient_glow"
+        }
+      },
       {
         "name": "sun",
         "components": [

@@ -51,6 +51,8 @@ public:
 	}
 
 	void Update(float deltaTime) override {
+		static float frames = 0.0f;
+		frames += deltaTime;
 		auto worldTransform = Transform::GetWorldTransformMatrix(&m_node->GetTransform());
 		glm::vec3 position(0.0f);
 		glm::vec3 rotation(0.0f);
@@ -66,7 +68,7 @@ public:
 		if (myName == "box") {
 			for (auto& overlap : overlaps) {
 				std::string overlapName = overlap.get()->GetAABB().GetNode()->GetName();
-				std::cout << myName << " :: " << overlapName << std::endl;
+				std::cout << static_cast<int>(frames) << " :: " << myName << " :: " << overlapName << std::endl;
 			}
 		}
 	}

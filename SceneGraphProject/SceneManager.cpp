@@ -22,9 +22,9 @@ SceneManager& SceneManager::GetInstance()
     return instance;
 }
 
-void SceneManager::LoadScene(const char* path, const char* title, unsigned int screenWidth, unsigned int screenHeight)
+void SceneManager::LoadScene(const char* path, const char* title, unsigned int screenWidth, unsigned int screenHeight, bool fullScreen)
 {
-    CoreManager::GetInstance().Init(screenWidth, screenHeight, title);
+    CoreManager::GetInstance().Init(screenWidth, screenHeight, title, fullScreen);
 
     std::ifstream stream(path);
     json scene;

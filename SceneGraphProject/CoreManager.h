@@ -27,7 +27,7 @@ private:
 
     std::vector<EventObserver*> m_observers;
 public:
-    void Init(int width, int height, std::string name);
+    void Init(int width, int height, std::string name, bool fullScreen = false);
     void Run();
     void Cleanup();
 
@@ -41,6 +41,7 @@ public:
     Camera* GetMainCamera();
     void SetMainCamera(Camera* camera);
     float GetDeltaTime();
+    float GetLastFrameTime();
     void GetWindowSize(int* width, int* height);
     void SetWindowSize(int width, int height);
     void HandleMouseMove(double newX, double newY);
